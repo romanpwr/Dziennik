@@ -8,7 +8,7 @@ if ($_POST['wyslij'] && $_SESSION['zalogowany']){
 $nick = $_SESSION['login'];
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM dzienniki WHERE IdDziennika='".$nick."' LIMIT 1"));
 $nazwa = $_POST['name_diary'];
-$options = $_POST['sex'];
+$options = $_POST['opt'];
 $spr2 = strlen($nazwa);
 
 if ($spr1[0]>=1){
@@ -67,8 +67,8 @@ $stop = true;
 <form action="addDiary.php" method="POST">
 <input type="text" id="newDiary_name" name="name_diary" size="40" value="Tutaj wpisz nazwę dziennika" required="required">
 <p>Mozliwosc komentowania wpisow</p>
-<input type="radio" name="sex" value="able" checked="yes">Wlacz<br>
-<input type="radio" name="sex" value="disable">Wylacz
+<input type="radio" name="opt" value="able" checked="yes">Wlacz<br>
+<input type="radio" name="opt" value="disable">Wylacz
 <br><br>
 <input type="submit" class="submit" name="wyslij" value="Wyślij" <?php if ($stop) { echo'disabled="disabled"';}?>>
 </form>
