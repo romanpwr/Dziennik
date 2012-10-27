@@ -17,19 +17,15 @@ alert('Load was performed.');
 	$("#edycjaZ").click(function(){
 		$('#left').load('editEvent.html');});	
 	$("#redakt").click(function(){
-		$('#left').load('editor.html');});
+		$('#left').load('addEditor.php');});
 	$("#oMnie").click(function(){
 		$('#left').load('aboutMe.html');});
 	$("#edycjaD").click(function(){
-		$('#left').load('editData.html');});
+		$('#left').load('edit.php');});
 	$("#zglosze").click(function(){
 		$('#left').load('reportForm.html');});		
 		
 	$("#wpisz").click(function() {
-	$(this).attr("value","");
-	$(this).css("color","black");
-	});	
-	$("reportForm.html #zgloszenie_txt").click(function() {
 	$(this).attr("value","");
 	$(this).css("color","black");
 	});	
@@ -71,7 +67,10 @@ alert('Load was performed.');
 		
         </div>
         <div id="right">RIGHT
-      
+			<ul>
+			<li><a href="#nothing" id="El1" class="zdarzenia"> Element1 </a></li>
+			<li><a href="#nothing" id="El2" class="zdarzenia"> Element2 </a></li>
+			</ul>
         </div>
     
 </div>
