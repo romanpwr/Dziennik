@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Strona glowna</title>
+<link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css">
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+
+</head>
+<body>
+<div id="inside">
+<p>Nick redaktora</p>
+	<form name="searchEditorForm"><br>
+		<input type="text" id="NickR" class="wpisz" size="25" style="color:grey;" value="Podaj nick redaktora"><br>
+		<input type="text" id="ImieR" class="wpisz" size="25" style="color:grey;" value="Podaj Imie redaktora"><br>
+		<input type="text" id="NazwR" class="wpisz" size="25" style="color:grey;" value="Podaj Nazwisko redaktora"><br>
+		
+		<table border="1">
+			<tr>
+				<td  class="select">
+					<input type="checkbox" name="redaktor" required="required">
+				</td>
+				<td class="">
+					<!-- Wpisy Redaktora -->
+					<p>wpis</p>
+				</td>
+			</tr>
+		</table>
+		
+		<p>Podaj haslo w ramach potwierdzenia </p><br>
+		<input type="text" id="Psswd" class="wpisz" size="25" style="color:grey;" value="Podaj swoje haslo"><br>
+		<input type="text" id="RePasswd" class="wpisz" size="25" style="color:grey;" value="Podaj swoje haslo"><br>
+		<p>Zatwierdz zmiany</p><br>
+		<input type="submit" value="Zatwierdz">
+	</form>
+</div>
+<script>
+	$(".wpisz").click(function() {
+	$(this).attr("value","");
+	$(this).css("color","black");
+	});	
+</script>
+</body>
+
+</html>
