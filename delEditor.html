@@ -10,12 +10,16 @@
 <body>
 <div id="inside">
 <p>Nick redaktora</p>
-	<form name="searchEditorForm"><br>
-		<input type="text" id="NickR" class="wpisz" size="25" style="color:grey;" value="Podaj nick redaktora"><br>
-		<input type="text" id="ImieR" class="wpisz" size="25" style="color:grey;" value="Podaj Imie redaktora"><br>
-		<input type="text" id="NazwR" class="wpisz" size="25" style="color:grey;" value="Podaj Nazwisko redaktora"><br>
+	<form name="Del_Editor"><br>
+		<input type="text" id="NickR" class="" size="25" style="color:grey;" disabled value="Tutaj powinien byc nick Redaktora"><br>
+		<input type="text" id="ImieR" class="" size="25" style="color:grey;" disabled value="Tutaj powinno byc imie Redaktora"><br>
+		<input type="text" id="NazwR" class="" size="25" style="color:grey;" disabled value="Tutaj powinno byc Nazwisko Redaktora"><br>
 		
 		<table border="1">
+		<tr>
+		<th>Zaznacz do Usuniecia</th>
+		<th>Wpisy</th>
+		</tr>
 			<tr>
 				<td  class="select">
 					<input type="checkbox" name="redaktor" required="required">
@@ -26,10 +30,10 @@
 				</td>
 			</tr>
 		</table>
+		<input type="checkbox" name="selectAll" required="required">Zaznacz wszystkie
 		
 		<p>Podaj haslo w ramach potwierdzenia </p><br>
 		<input type="text" id="Psswd" class="wpisz" size="25" style="color:grey;" value="Podaj swoje haslo"><br>
-		<input type="text" id="RePasswd" class="wpisz" size="25" style="color:grey;" value="Podaj swoje haslo"><br>
 		<p>Zatwierdz zmiany</p><br>
 		<input type="submit" value="Zatwierdz">
 	</form>
