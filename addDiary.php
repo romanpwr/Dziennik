@@ -4,7 +4,7 @@ include ("connection.php");
 $komunikaty = '';
 
 /** Początek dodawania nowego dziennika **/
-if ($_POST['wyslij'] && $_SESSION['zalogowany']){
+if (isset($_POST['wyslij']) && isset($_SESSION['zalogowany'])){
 $nick = $_SESSION['login'];
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM dzienniki WHERE IdDziennika='".$nick."' LIMIT 1"));
 $nazwa = $_POST['name_diary'];
@@ -44,10 +44,10 @@ $komunikaty.=mysql_error();
 
 ?>
 <?php
-if ($_SESSION['zalogowany']){
+if (isset($_SESSION['zalogowany'])){
 $nick = $_SESSION['login'];
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM dzienniki WHERE IdDziennika='".$nick."' LIMIT 1"));
-if ($spr1[0]>=1 && !$result){
+if ($spr1[0]>=1 && !isset($result)){
 $komunikaty.="Posiadasz już swój dziennik w systemie.<br />";
 $stop = true;
 }
@@ -61,7 +61,7 @@ $stop = true;
 <div id="inside">
 <fieldset>
 <h4>Utworz dziennik</h4>
-<?php if ($komunikaty && !$result){ echo '<font color="red"><b>'.$komunikaty.'</b></font>';}
+<?php if ($komunikaty && !isset($result)){ echo '<font color="red"><b>'.$komunikaty.'</b></font>';}
 	else { echo '<font color="blue">'.$komunikaty.'</font>';}?>
 <p>Nazwa dziennika:</p>
 <form action="addDiary.php" method="POST">
