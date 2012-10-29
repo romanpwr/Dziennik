@@ -7,7 +7,7 @@ include ("connection.php");
 <?php
 if ($_SESSION['zalogowany']){
 
-if ($_POST['wyslij']){
+if (isset($_POST['wyslij'])){
 $nick = $_POST['nickuser'];
 }
 else{

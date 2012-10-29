@@ -7,7 +7,7 @@ include ("connection.php");
 */
 
 /** -------------początek zmiany hasła ------------- **/
-if ($_POST['pwd'] && $_SESSION['zalogowany']){ 
+if (isset($_POST['pwd']) && isset($_SESSION['zalogowany'])){ 
 $komunikaty = '';
 $nick = $_SESSION['login'];
 $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$nick."'");
@@ -58,7 +58,7 @@ $komunikaty.= "Nie podano aktualnego hasła.<br />";
 }
 /** -------------koniec zmiany hasła ------------- **/
 
-if ($_POST['edit'] && $_SESSION['zalogowany']){
+if (isset($_POST['edit']) && isset($_SESSION['zalogowany'])){
 $komunikaty1 = '';
 $nick = $_SESSION['login'];
 $haslo = $_POST["password"];
@@ -66,8 +66,9 @@ $imie = $_POST["firstname"];
 $nazwisko = $_POST["surname"];
 $email = $_POST["email"];
 $omnie = $_POST['omnie'];
+if (isset($_POST['datepicker'])){
 $data = $_POST['datepicker'];
-
+}
 $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$nick."'");
 $r = mysql_fetch_array($query);
 
@@ -102,7 +103,7 @@ $result1 = mysql_query("UPDATE uzytkownicy  SET Imie='".$imie."', Nazwisko='".$n
 ?>
 
 <?php
-if ($_SESSION['zalogowany']){
+if (isset($_SESSION['zalogowany'])){
 $nick = $_SESSION['login'];
 $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$nick."'");
 $r = mysql_fetch_array($query);
@@ -146,8 +147,8 @@ Witaj, <?php echo $nick;?>
 	<fieldset>
 	<legend>Edycja danych</legend><br>
 	
-	<?php if ($komunikaty1 && !$result1){ echo '<font color="red">'.$komunikaty1.'</font><br />';}
-		  elseif ($komunikaty1){ echo '<font color="blue">'.$komunikaty1.'</font><br />';}
+	<?php if (isset($komunikaty1) && !isset($result1)){ echo '<font color="red">'.$komunikaty1.'</font><br />';}
+		  elseif (isset($komunikaty1)){ echo '<font color="blue">'.$komunikaty1.'</font><br />';}
 	?>
 	<!-- ----------------------------------------------------------------- -->
 	<!-- WAZNE!! -->
@@ -175,8 +176,8 @@ Witaj, <?php echo $nick;?>
 <form name="input" method="post" action="edit.php"> <!--(do srodka) |action="html_form_action.asp" method="get"| po nacisnieciu submit - wysyla dane do html_form_action.asp --> 
 	<fieldset>
 	<legend>Zmiana hasla</legend><br>
-	<?php if ($komunikaty && !$result){ echo '<font color="red">'.$komunikaty.'</font><br />';}
-		  elseif ($komunikaty){ echo '<font color="blue">'.$komunikaty.'</font><br />';}
+	<?php if (isset($komunikaty) && !isset($result)){ echo '<font color="red">'.$komunikaty.'</font><br />';}
+		  elseif (isset($komunikaty)){ echo '<font color="blue">'.$komunikaty.'</font><br />';}
 	?>
 	<!-- WAZNE!! -->
 	<!-- w value powinno byc imie uzytkownika sciagane z bazy danych (php) -->

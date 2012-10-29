@@ -13,7 +13,7 @@ include ("connection.php");
 
 <?php
 
-if ($_SESSION['zalogowany']){
+if (isset($_SESSION['zalogowany'])){
 $nick = $_SESSION['login'];
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM dzienniki WHERE IdDziennika='".$nick."' LIMIT 1"));
 $komunikaty = '';
