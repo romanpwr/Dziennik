@@ -14,6 +14,11 @@ if (empty($nick)) {
 echo 'Witaj '.$nick.' zostałeś/aś pomyślnie zalogowany/a <br/>';
 echo '<a href="edit.php">Edytuj swój profil</a><br />';
 echo '<a href="addDiary.php">Dodaj nowy dziennik</a><br />';
-echo '<a href="addEditor.php">"Dodaj nowego redaktora</a><br />';
+echo '<a href="addEditor.php">Dodaj nowego redaktora</a><br />';
+$dziennik = mysql_query("SELECT * FROM dzienniki WHERE IdDziennika='$nick'");
+if (mysql_num_rows($dziennik)==1) {
+$_SESSION['dziennik']=$dziennik;
+echo '<a href="addInscription.php">Dodaj wpis do dziennika</a><br />';
+}
 echo '<br><a href="wyloguj.php">Wyloguj mnie</a>';
 ?>
