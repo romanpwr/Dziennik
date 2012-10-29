@@ -7,8 +7,9 @@ pamiętać o zakodowaniu wpisanego przez usera i porównaniu ciągu znaków z ba
 
 */
 
+if (isset($_GET['id'])){
 $id = $_GET['id'];
-	if ($id == reg) {
+	if ($id == 'reg') {
 
 $nick = $_POST["nickname"];
 $haslo = $_POST["password"];
@@ -39,6 +40,7 @@ $spr2 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM Uzytkownicy WHERE Em
 $komunikaty = '';
 $spr4 = strlen($nick);
 $spr5 = strlen($haslo);
+date_default_timezone_set("Europe/Warsaw"); 
 
 //sprawdzenie co uzytkownik zle zrobil
 if ($spr4 < 4) {
@@ -85,10 +87,11 @@ echo '
 //jesli wszystko jest ok dodaje uzytkownika i wyswietla informacje
 $haslo = md5($haslo); //szyfrowanie hasla
 
-mysql_query("INSERT INTO `uzytkownicy` (Nick, Haslo, Imie, Nazwisko, Email, Dostep, DataRej, KodIdent, Ostrzezenia, OMnie, DataUr) VALUES('$nick','$haslo','$imie','$nazwisko','$email','0','$teraz','0','0','Tutaj wpisz informację o sobie','$data')") or die("Nie mogłem Cie zarejestrować !".mysql_error());
+mysql_query("INSERT INTO `uzytkownicy` (Nick, Haslo, Imie, Nazwisko, Email, Dostep, DataRej, KodIdent, OMnie, DataUr) VALUES('$nick','$haslo','$imie','$nazwisko','$email','0','$teraz','0','Tutaj wpisz informację o sobie','$data')") or die("Nie mogłem Cie zarejestrować !".mysql_error());
 
 echo '<br><span style="color: green; font-weight: bold;">Zostałeś zarejestrowany '.$nick.'. Teraz możesz się zalogować</span><br>';
 echo '<br><a href="login.php">Logowanie</a>';
+}
 }
 }
 ?>
@@ -116,18 +119,18 @@ function dateFun(){
 <form method="post" action="register.php?id=reg"> <!--(do srodka) |action="html_form_action.asp" method="get"| po nacisnieciu submit - wysyla dane do html_form_action.asp --> 
 	<fieldset>
 	<legend>Wpisz swoje dane</legend><br>
-	<label for="nickname">Nick:</label>      <input type='text' maxlength="20" class='pData' id='nickname' name='nickname' value="<?php echo $nick;?>" required="required" autofocus='autofocus'><br>
+	<label for="nickname">Nick:</label>      <input type='text' maxlength="20" class='pData' id='nickname' name='nickname' value="<?php if (isset($nick)){echo $nick;}?>" required="required" autofocus='autofocus'><br>
 	<label for="password">Hasło:</label>	 <input type='password' maxlength="20"  class='pData' id='password' name='password' required="required"><br>
 	<label for="password2">Powtórz hasło:</label>	 <input type='password' maxlength="20"  class='pData' id='password2' name='password2' required="required"><br>
-	<label for="firstname">Imie:</label>     <input type='text' maxlength="30"  class='pData' id='firstname' name='firstname' value="<?php echo $imie;?>" required="required"><br>
-	<label for="surname">Nazwisko:</label>   <input type='text' maxlength="30"  class='pData' id='surname' name='surname' value="<?php echo $nazwisko;?>"required="required"><br>
-	<label for="email">E-mail:</label>       <input type='email' maxlength="30" class='pData' id='email' name='email' value="<?php echo $email;?>" required="required" autocomplete="off"><br><br>
-	<label for="datepicker">Data Ur:</label> <input type='date'  class='pData' id='datepicker' name='datepicker' value="<?php echo $data;?>"><br>
+	<label for="firstname">Imie:</label>     <input type='text' maxlength="30"  class='pData' id='firstname' name='firstname' value="<?php if (isset($nick)){echo $imie;}?>" required="required"><br>
+	<label for="surname">Nazwisko:</label>   <input type='text' maxlength="30"  class='pData' id='surname' name='surname' value="<?php if (isset($nick)){echo $nazwisko;}?>"required="required"><br>
+	<label for="email">E-mail:</label>       <input type='email' maxlength="30" class='pData' id='email' name='email' value="<?php if (isset($nick)){echo $email;}?>" required="required" autocomplete="off"><br><br>
+	<label for="datepicker">Data Ur:</label> <input type='date'  class='pData' id='datepicker' name='datepicker' value="<?php if (isset($nick)){echo $data;}?>"><br>
 			<!-- Dla przeglądarek nieobsługujących HTML5 typ: date -->
 			<div id='dateIE' style='DISPLAY: none'><br>
-			<label for="dDateie">Dzien:  </label> <input type='text' class='pData' id='dDate' name='dDate' value="<?php echo $dzien;?>"><br>
-			<label for="mDateie">Miesiac: </label> <input type='text' class='pData' id='mDate' name='mDate' value="<?php echo $mies;?>"><br>
-			<label for="yDateie">Rok:     </label> <input type='text' class='pData' id='yDate' name='yDate'value="<?php echo $rok;?>" ><br>
+			<label for="dDateie">Dzien:  </label> <input type='text' class='pData' id='dDate' name='dDate' value="<?php if (isset($nick)){echo $dzien;}?>"><br>
+			<label for="mDateie">Miesiac: </label> <input type='text' class='pData' id='mDate' name='mDate' value="<?php if (isset($nick)){echo $mies;}?>"><br>
+			<label for="yDateie">Rok:     </label> <input type='text' class='pData' id='yDate' name='yDate'value="<?php if (isset($nick)){echo $rok;}?>" ><br>
 			<!-- -------------------------------------------------------------- -->
 			</div>
 			<br><br>
