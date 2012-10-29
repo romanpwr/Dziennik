@@ -22,7 +22,7 @@ $searcherror = false;
 if ($spr1[0] == 1){
 
 
-if ($_POST['dodaj']){
+if (isset($_POST['dodaj'])){
 $nickred = $_POST['nickred'];
 $spr2 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM uzytkownicy WHERE nick='".$nickred."' LIMIT 1"));
 $spr3 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM redaktorzy WHERE NickRed='".$nickred."' AND NazwaDziennika = '".$nick."' LIMIT 1"));
