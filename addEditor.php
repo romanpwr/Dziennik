@@ -3,16 +3,8 @@ session_start();
 include ("connection.php");
 
 
-if (isset($_POST['edit'])){
-if (isset($_POST['redaktor'])){
-header('Location: editEditor.php?id='.$_POST['redaktor']);
-}
-}
-if (isset($_POST['del'])){
-if (isset($_POST['redaktor'])){
-header('Location: delEditor.php?id='.$_POST['redaktor']);
-}
-}
+
+
 
 
 ?>
@@ -30,7 +22,7 @@ $searcherror = false;
 if ($spr1[0] == 1){
 
 
-if (isset($_POST['dodaj'])){
+if ($_POST['dodaj']){
 $nickred = $_POST['nickred'];
 $spr2 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM uzytkownicy WHERE nick='".$nickred."' LIMIT 1"));
 $spr3 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM redaktorzy WHERE NickRed='".$nickred."' AND NazwaDziennika = '".$nick."' LIMIT 1"));
@@ -78,7 +70,7 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 <p>Dodawanie nowego redaktora</p>
 <?php echo $komunikaty; ?>
 	<form name="searchEditorForm" method="POST" action="addEditor.php"><br>
-		<input type="text" id="wpisz" size="25" style="color:grey;" name="nickred" value="<?php if (isset($_POST['nickred'])) {echo $_POST['nickred'];} else {?>Podaj tu nick do szukania<?php }?>">
+		<input type="text" id="wpisz" size="25" style="color:grey;" name="nickred" value="<?php if ($_POST['nickred']) {echo $_POST['nickred'];} else {?>Podaj tu nick do szukania<?php }?>">
 		<input type="submit" name="dodaj" value="Dodaj">
 	</form>
 	</fieldset>
@@ -116,14 +108,15 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 		
 	</tr>';
 	}
+	
 echo'</table>
 <!-- Usuniecie Redaktora -->
-		    <input type="submit" name="edit" value="Edytuj"';
+		    <input type="submit" value="Edytuj"';
 			if ($i ==0){
 			echo ('disabled="disabled"');
 			}
 			echo'>
-			<input type="submit" name="del" value="Usun"';
+			<input type="submit" value="Usun"';
 			if ($i ==0){
 			echo ('disabled="disabled"');
 			}			
