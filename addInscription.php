@@ -35,19 +35,19 @@ if(isset($_POST['submit'])) {
 ?>
 
 <link href="" type="text/css" rel="stylesheet"/>      
-<title>Multimedialny dziennik podró¿y - dodawanie zdarzenia.</title>        
+<title>Multimedialny dziennik podrÃ³Å¼y - dodawanie zdarzenia.</title>        
 <table>        
     <th>         
     <td>            
         <form name="addInscription" method="POST" action="addInscription.php">                
-        <p><label for="title">Tytu³ zdarzenia: </label></p>                
-        <p> <input type="text" name="title" size="30" autofocus required/>                    
+        <p><label for="title">TytuÅ‚ zdarzenia: </label></p>                
+        <p> <input type="text" name="title" size="30" autofocus required="required"/>                    
             <button> Uprawnienia </button>                 
         </p>                
         <p><label for="inscription">Wpis: </label></p>                
-        <p><textarea name="inscription" rows="20" cols="60" required/> </textarea></p>                
+        <p><textarea name="inscription" rows="20" cols="60" required="required"/></textarea></p>                
         <p class="center">                    
-           <input type="reset" value="Wyczyœæ pola"/>                    
+           <input type="reset" value="WyczyÅ›Ä‡ pola"/>                    
            <input type="submit" class="submit" name="submit" value="Zapisz"/>                
         </p>            
         </form>         
@@ -55,15 +55,15 @@ if(isset($_POST['submit'])) {
     </th>        
     <th>                    
         <table>               
-        <tr><td><label>Za³¹cz zdjêcie: </label></td></tr>            
-        <tr><td><button>Przegl¹daj</button></td></tr>            
-        <tr><td><textarea>Tu bêdzie kontener multimediów. </textarea></td></tr>
-        <tr><td><label>Za³¹cz video: </label></td></tr>    
-        <tr><td><button>Przegl¹daj</button></td></tr>    
-        <tr><td><textarea>Tu bêdzie kontener multimediów. </textarea> </td></tr>    
-        <tr><td><label>Za³¹cz plik audio: </label></td></tr>    
-        <tr><td><button>Przegl¹daj</button></td></tr>    
-        <tr><td><textarea>Tu bêdzie kontener multimediów. </textarea> </td></tr>                
+        <tr><td><label>ZaÅ‚Ä…cz zdjÄ™cie: </label></td></tr>            
+        <tr><td><button>PrzeglÄ…daj</button></td></tr>            
+        <tr><td><textarea>Tu bÄ™dzie kontener multimediÃ³w. </textarea></td></tr>
+        <tr><td><label>ZaÅ‚Ä…cz video: </label></td></tr>    
+        <tr><td><button>PrzeglÄ…daj</button></td></tr>    
+        <tr><td><textarea>Tu bÄ™dzie kontener multimediÃ³w. </textarea> </td></tr>    
+        <tr><td><label>ZaÅ‚Ä…cz plik audio: </label></td></tr>    
+        <tr><td><button>PrzeglÄ…daj</button></td></tr>    
+        <tr><td><textarea>Tu bÄ™dzie kontener multimediÃ³w. </textarea> </td></tr>                
         </table>
     </th>
 </table>

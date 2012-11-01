@@ -45,8 +45,8 @@ $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$login."' && Has
 <form name="input" method="post" action="login.php"> <!--(do srodka) |action="html_form_action.asp" method="get"| po nacisnieciu submit - wysyla dane do html_form_action.asp --> 
     <fieldset>
     <label for="loginname">Login: </label>    <input type='text'  class='lData' id='loginname' name='login' required="required"><br>
-    <label for="password">Haslo: </label>     <input type='password'  class='lData' id='password' name='password' required="required"><br>
-    <a href="stonaPrzypomienia.html" style="float:right">Przypomienie hasla</a><br>
+    <label for="password">Hasło: </label>     <input type='password'  class='lData' id='password' name='password' required="required"><br>
+    <a href="stonaPrzypomienia.html" style="float:right">Przypomnienie hasła</a><br>
     <a href="register.php" style="float:right">Rejestracja</a><br>
     <input type="submit" class="submit" name="wyslij" value="Zaloguj">
     </fieldset>
