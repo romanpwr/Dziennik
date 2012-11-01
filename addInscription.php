@@ -1,14 +1,14 @@
-<?php
+ï»¿<?php
 session_start();
 include("connection.php");
 
 /** Potrzebuje z sesji:
- login - nick danego usera(redaktora), który dodaje wpis
- dziennik - idDziennika, do którego wpis jest dodawany
-Czyli przed wywo³aniem skryptu trzeba dodaæ do sesji 'dziennik'!
+ login - nick danego usera(redaktora), ktÃ³ry dodaje wpis
+ dziennik - idDziennika, do ktÃ³rego wpis jest dodawany
+Czyli przed wywoÅ‚aniem skryptu trzeba dodaÅ‚ do sesji 'dziennik'!
   
- * Po przeanalizowaniu bazy uzna³em, ¿e gdy wpis dodaje autor pole NickRed zostaje puste.
- (Ewentualnie mo¿na przerobiæ zeby zawsze dodawac nick osoby dodaj¹cej wpis.)
+ * Po przeanalizowaniu bazy uznaÅ‚em, Å¼e gdy wpis dodaje autor pole NickRed zostaje puste.
+ (Ewentualnie moÅ¼na przerobiÄ‡ zeby zawsze dodawac nick osoby dodajÄ…cej wpis.)
  
  **/
 
@@ -26,9 +26,9 @@ if(isset($_POST['submit'])) {
         $query=mysql_query("INSERT INTO wpisy (IdDziennika,NickRed,Tytul,Tekst,DataWpisu) VALUES('$dziennik','$login','$tytul','$wpis','$data')");
     }
     if ($query) {
-        echo '<br><span style="color: green; font-weight: bold;">Wpis zosta³ dodany! </span><br>';
+        echo '<br><span style="color: green; font-weight: bold;">Wpis zostaÅ‚ dodany! </span><br>';
     } else {
-        echo '<br><span style="color: red; font-weight: bold;">B³¹d po³¹czenia z baz¹ danych! </span><br>';
+        echo '<br><span style="color: red; font-weight: bold;">BÅ‚Ä…d poÅ‚Ä…czenia z bazÄ… danych! </span><br>';
     }
 }
 
@@ -70,6 +70,6 @@ if(isset($_POST['submit'])) {
 
 <?php
 } else {
-    echo '<br><span style="color: red; font-weight: bold;">Nie zosta³ wybrany dziennik, do którego wpis ma byæ dodany!</span><br>' ;
+    echo '<br><span style="color: red; font-weight: bold;">Nie zostaÅ‚ wybrany dziennik, do ktÃ³rego wpis ma byÄ‡ dodany!</span><br>' ;
 }
 ?>
