@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include("connection.php");
 
@@ -8,8 +8,8 @@ include("connection.php");
  IdWpisu - id wpisu, który będziemy edytować
   
  * Trzeba przemyśleć, czy będziemy chcieli gdzieś zapamitywać datę i autora korekty.
- * Trzeba by jeszcze dorobi� jaki� Messege box do deleta. 
- * Po delejcie powr�t do indexa by si� przyda�.
+ * Trzeba by jeszcze dorobić jakiś Messege box do deleta. 
+ * Po delejcie powrót do indexa by się przydać
  
  **/
 
@@ -44,11 +44,11 @@ if(isset($_POST['submit'])) {
     $tytul = "";
     $wpis = "";
 } else if(isset($_POST['delete'])) {
-    //Przed skasowaniem dialogbox Yes/No by si� przyda�.
+    //Przed skasowaniem dialogbox Yes/No by się przydać.
     $query= mysql_query("DELETE FROM wpisy WHERE IdWpis='$idWpisu'");
     if ($query) {
-        echo '<br><span style="color: green; font-weight: bold;">Wpis został usuni�ty! </span><br>';
-        // Dobrze by by�o �eby nie zostawia� na stronie. Najlepiej info i powr�t na index.
+        echo '<br><span style="color: green; font-weight: bold;">Wpis został usunięty! </span><br>';
+        // Dobrze by było żeby nie zostawiać na stronie. Najlepiej info i powrót na index.
     } else {
         echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
     }
@@ -71,7 +71,7 @@ if(isset($_POST['submit'])) {
         <p class="center">                    
            <input type="submit" name="reset" value="Wyczyść pola"/>                    
            <input type="submit" name="submit" value="Zapisz"/>
-           <input type="submit" name="delete" value="Usu�"/>
+           <input type="submit" name="delete" value="Usuń"/>
         </p>            
         </form>     
     </td>           
