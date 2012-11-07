@@ -11,25 +11,31 @@ Czyli przed wywołaniem skryptu trzeba dodał do sesji 'dziennik'!
  (Ewentualnie można przerobić zeby zawsze dodawac nick osoby dodającej wpis.)
  
  **/
-
-if (isset($_SESSION['dziennik'])) {
+echo $_SESSION['dziennik'];
+echo $_SESSION['login'];
+if (isset($_SESSION['dziennik']) && strlen($_SESSION['dziennik'])>1) {
 if(isset($_POST['submit'])) {
     $login = $_SESSION['login'];
     $dziennik = $_SESSION['dziennik'];
     $tytul = $_POST['title'];
     $wpis = $_POST['inscription'];
+	date_default_timezone_set("Europe/Warsaw");
     $data = date("Y-m-d");
     
-    if ($login == $dziennik) {
-        $query=mysql_query("INSERT INTO wpisy (IdDziennika,Tytul,Tekst,DataWpisu) VALUES('$dziennik','$tytul','$wpis','$data')");
-    } else {
-        $query=mysql_query("INSERT INTO wpisy (IdDziennika,NickRed,Tytul,Tekst,DataWpisu) VALUES('$dziennik','$login','$tytul','$wpis','$data')");
-    }
+	$spr1 = mysql_query("SELECT * FROM wpisy WHERE IdDziennika='$dziennik' AND DataWpisu ='$data'");
+	if (mysql_num_rows($spr1) ==0){
+    $query=mysql_query("INSERT INTO wpisy (IdDziennika,NickRed,Tytul,Tresc,DataWpisu) VALUES('$dziennik','$login','$tytul','$wpis','$data')");
     if ($query) {
         echo '<br><span style="color: green; font-weight: bold;">Wpis został dodany! </span><br>';
     } else {
-        echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
+        echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>'.mysql_error();
     }
+	}
+	else{
+	echo '<br><span style="color: red; font-weight: bold;">W bazie danych istnieje już wpis w tym dzienniku z taką datą. Możesz TUTAJ przejść do niego. </span><br>';
+	}
+	
+    
 }
 
 ?>
@@ -42,7 +48,7 @@ if(isset($_POST['submit'])) {
         <form name="addInscription" method="POST" action="addInscription.php">                
         <p><label for="title">Tytuł zdarzenia: </label></p>                
         <p> <input type="text" name="title" size="30" autofocus required="required"/>                    
-            <button> Uprawnienia </button>                 
+            <button disable="disable"> Uprawnienia </button>                 
         </p>                
         <p><label for="inscription">Wpis: </label></p>                
         <p><textarea name="inscription" rows="20" cols="60" required="required"/></textarea></p>                
@@ -56,7 +62,7 @@ if(isset($_POST['submit'])) {
     <th>                    
         <table>               
         <tr><td><label>Załącz zdjęcie: </label></td></tr>            
-        <tr><td><button>Przeglądaj</button></td></tr>            
+        <tr><td><form name="addInscription" method="POST" action="addPhoto.php"> <input type="submit" class="submit" name="wpis" value="Przejdź do galerii zdjęć"><input type="hidden" name="ID_WPIS" value="250000" /> </form></td></tr>            
         <tr><td><textarea>Tu będzie kontener multimediów. </textarea></td></tr>
         <tr><td><label>Załącz video: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    
@@ -70,6 +76,6 @@ if(isset($_POST['submit'])) {
 
 <?php
 } else {
-    echo '<br><span style="color: red; font-weight: bold;">Nie został wybrany dziennik, do którego wpis ma być dodany!</span><br>' ;
+    echo '<br><span style="color: red; font-weight: bold;">Nie został wybrany dziennik, do którego wpis ma być dodany lub nie posiadasz dziennika!</span><br>' ;
 }
 ?>

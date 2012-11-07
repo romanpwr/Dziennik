@@ -12,27 +12,23 @@ include("connection.php");
  * Po delejcie powrót do indexa by się przydać
  
  **/
-
+if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
 $idWpisu = $_GET['idWpisu'];
-
-$query = mysql_query("SELECT * FROM wpisy WHERE IdWpis='$idWpisu'");
+$dziennik = $_SESSION['dziennik'];
+$query = mysql_query("SELECT * FROM wpisy WHERE IdWpis='$idWpisu' AND IdDziennika='$dziennik'");
 
 if (mysql_num_rows($query)==1) { 
     $result = mysql_fetch_array($query);
     $tytul = $result['Tytul'];
-    $wpis = $result['Tekst'];
-} else {
-    $tytul = "";
-    $wpis = "";
-    echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych!</span><br>' ;
-}    
+    $wpis = $result['Tresc'];
+ 
 
 if(isset($_POST['submit'])) {    
     
     $tytul = $_POST['title'];
     $wpis = $_POST['inscription'];
         
-    $query=mysql_query("UPDATE wpisy SET Tytul='$tytul',Tekst='$wpis' WHERE IdWpis='$idWpisu'");
+    $query=mysql_query("UPDATE wpisy SET Tytul='$tytul',Tresc='$wpis' WHERE IdWpis='$idWpisu'");
     
     if ($query) {
         echo '<br><span style="color: green; font-weight: bold;">Wpis został zmieniony! </span><br>';
@@ -53,6 +49,7 @@ if(isset($_POST['submit'])) {
         echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
     }
 }
+
 
 ?>
 
@@ -91,3 +88,13 @@ if(isset($_POST['submit'])) {
     </th>
 </table>
 
+<?php
+} else {
+    $tytul = "";
+    $wpis = "";
+    echo '<br><span style="color: red; font-weight: bold;">Brak wpisu w bazie lub nie należy on do wybranego dziennika.</span><br>' ;
+}   
+}
+else{
+ echo '<br><span style="color: red; font-weight: bold;">Nie został wpis, który ma być edytowany!</span><br>' ;
+}
