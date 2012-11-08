@@ -76,7 +76,7 @@ if(isset($_POST['submit'])) {
     <th>                    
         <table>               
         <tr><td><label>Załącz zdjęcie: </label></td></tr>            
-        <tr><td><button>Przeglądaj</button></td></tr>            
+        <tr><td><form name="addInscription" method="POST" action="addPhoto.php"><input type="hidden" name="idWpisu" value="<?php echo $idWpisu; ?>" /> <input type="submit" class="submit" name="wpis" value="Przejdź do galerii zdjęć"></form></td></tr>            
         <tr><td><textarea>Tu będzie kontener multimediów. </textarea></td></tr>
         <tr><td><label>Załącz video: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    

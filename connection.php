@@ -20,5 +20,4 @@
     or die('Błąd wyboru bazy danych. '.mysql_error()); 
 	//echo ('<br />Baza wybrana');
 
-
 ?>
