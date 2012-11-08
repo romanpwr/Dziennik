@@ -122,10 +122,10 @@ function dateFun(){
 	<label for="nickname">Nick:</label>      <input type='text' maxlength="20" class='pData' id='nickname' name='nickname' value="<?php if (isset($nick)){echo $nick;}?>" required="required" autofocus='autofocus'><br>
 	<label for="password">Hasło:</label>	 <input type='password' maxlength="20"  class='pData' id='password' name='password' required="required"><br>
 	<label for="password2">Powtórz hasło:</label>	 <input type='password' maxlength="20"  class='pData' id='password2' name='password2' required="required"><br>
-	<label for="firstname">Imie:</label>     <input type='text' maxlength="30"  class='pData' id='firstname' name='firstname' value="<?php if (isset($nick)){echo $imie;}?>" required="required"><br>
+	<label for="firstname">Imię:</label>     <input type='text' maxlength="30"  class='pData' id='firstname' name='firstname' value="<?php if (isset($nick)){echo $imie;}?>" required="required"><br>
 	<label for="surname">Nazwisko:</label>   <input type='text' maxlength="30"  class='pData' id='surname' name='surname' value="<?php if (isset($nick)){echo $nazwisko;}?>"required="required"><br>
 	<label for="email">E-mail:</label>       <input type='email' maxlength="30" class='pData' id='email' name='email' value="<?php if (isset($nick)){echo $email;}?>" required="required" autocomplete="off"><br><br>
-	<label for="datepicker">Data Ur:</label> <input type='date'  class='pData' id='datepicker' name='datepicker' value="<?php if (isset($nick)){echo $data;}?>"><br>
+	<label for="datepicker">Data ur.:</label> <input type='date'  class='pData' id='datepicker' name='datepicker' value="<?php if (isset($nick)){echo $data;}?>"><br>
 			<!-- Dla przeglądarek nieobsługujących HTML5 typ: date -->
 			<div id='dateIE' style='DISPLAY: none'><br>
 			<label for="dDateie">Dzien:  </label> <input type='text' class='pData' id='dDate' name='dDate' value="<?php if (isset($nick)){echo $dzien;}?>"><br>

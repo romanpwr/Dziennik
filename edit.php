@@ -147,7 +147,7 @@ Witaj, <?php echo $nick;?>
 	<fieldset>
 	<legend>Edycja danych</legend><br>
 	
-	<?php if (isset($komunikaty1) && !isset($result1)){ echo '<font color="red">'.$komunikaty1.'</font><br />';}
+	<?php if (isset($komunikaty1) && (!isset($result1) || $result1 == FALSE)){ echo '<font color="red">'.$komunikaty1.'</font><br />';}
 		  elseif (isset($komunikaty1)){ echo '<font color="blue">'.$komunikaty1.'</font><br />';}
 	?>
 	<!-- ----------------------------------------------------------------- -->
@@ -176,7 +176,7 @@ Witaj, <?php echo $nick;?>
 <form name="input" method="post" action="edit.php"> <!--(do srodka) |action="html_form_action.asp" method="get"| po nacisnieciu submit - wysyla dane do html_form_action.asp --> 
 	<fieldset>
 	<legend>Zmiana hasla</legend><br>
-	<?php if (isset($komunikaty) && !isset($result)){ echo '<font color="red">'.$komunikaty.'</font><br />';}
+	<?php if (isset($komunikaty) && (!isset($result) || $result == FALSE)){ echo '<font color="red">'.$komunikaty.'</font><br />';}
 		  elseif (isset($komunikaty)){ echo '<font color="blue">'.$komunikaty.'</font><br />';}
 	?>
 	<!-- WAZNE!! -->
