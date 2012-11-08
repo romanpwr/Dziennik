@@ -11,8 +11,10 @@ dostep - dostęp do naszego serwisu, domyślnie na razie jest to 0, ale zostanie
 
 if(isset($_SESSION['zalogowany'])) {
 echo "From Session <br />";
-echo $login." Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br>";
-		   echo('<a href="index.php">Kliknij tutaj, aby przejść dalej</a>');
+$login = $_SESSION['login'];
+$dziennik = $_SESSION['dziennik'];
+echo $login." Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br> Masz dziennik: ".$dziennik;
+		   echo('<br /><a href="index.php">Kliknij tutaj, aby przejść dalej</a>');
 }else{
 if(isset($_POST['wyslij'])) {
 $login = $_POST['login'];
@@ -25,7 +27,15 @@ $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$login."' && Has
            $_SESSION['zalogowany'] = true;
            $_SESSION['login'] = $login;
 		   $_SESSION['dostep']= $r['Dostep'];
-           echo $login." Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br>";
+		   $spr1 = mysql_query("SELECT * FROM dzienniki WHERE IdDziennika ='".$login."'");
+		   if (mysql_num_rows($spr1) > 0){
+		   $_SESSION['dziennik'] = $login;
+		   }
+		   else {
+		   $_SESSION['dziennik'] ='0';
+		   }
+		   echo $_SESSION['dziennik']."<br />";
+           echo $login." <br />Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br>";
 		   echo('<a href="index.php">Kliknij tutaj, aby przejść dalej</a>');
 		   
 

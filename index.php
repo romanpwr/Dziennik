@@ -16,14 +16,15 @@ echo '<a href="edit.php">Edytuj swój profil</a><br />';
 echo '<a href="addDiary.php">Dodaj nowy dziennik</a><br />';
 echo '<a href="addEditor.php">Dodaj nowego redaktora</a><br />';
 $dziennik = mysql_query("SELECT * FROM dzienniki WHERE IdDziennika='$nick'");
-if (mysql_num_rows($dziennik)==1) {
-$_SESSION['dziennik']=$dziennik;
+if (isset($_SESSION['dziennik']) && strlen($_SESSION['dziennik'])>1){
 echo '<a href="addInscription.php">Dodaj wpis do dziennika</a><br />';
+$dziennik = $_SESSION['dziennik'];
+
+$wpis = mysql_query("SELECT * FROM wpisy WHERE IdDziennika = '".$dziennik."'");
+
+while ($row = mysql_fetch_array($wpis, MYSQL_BOTH)){
+echo '<a href="editInscription.php?idWpisu='.$row['IdWpis'].'">Edytuj wpis numer '.$row['IdWpis'].'</a> z dnia '.$row['DataWpisu'].'<br />';
 }
-$wpis = mysql_query("SELECT * FROM wpisy");
-if (mysql_num_rows($wpis)!=0) {
-$result = mysql_fetch_array($wpis);
-echo '<a href="editInscription.php?idWpisu='.$result['IdWpis'].'">Edytuj wpis</a><br />';
 }
 echo '<br><a href="wyloguj.php">Wyloguj mnie</a>';
 ?>
