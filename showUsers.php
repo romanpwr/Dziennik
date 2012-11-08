@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    include("connection.php");
+    $result=mysql_query("SELECT * FROM uzytkownicy AS u LEFT JOIN dzienniki AS d ON u.Nick=d.IdDziennika");
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,30 +31,38 @@
 		<th>Usun uzytkownika</th>
 		<th>Wyslij wiadomosc</th>
 		</tr>
-			<tr>
+                    <?php
+                       if (mysql_num_rows($result)>0) { 
+                        $i=0;
+                        while ($tab= mysql_fetch_assoc($result)) {                     
+                        $nick = $tab['Nick'];
+                        $imie = $tab['Imie'];
+                        $nazwisko = $tab['Nazwisko'];
+                        $dziennik = $tab['Nazwa'];                        
+                        echo '<tr>
 				<td  class="select">
 					<input type="checkbox" name="userSelected">
 				</td>
 				<td class="">
 					<!-- Numeracja uzytkownika -->
-					<input type="text" name="numberOfUser"  class="" disabled value="1">
+					<input type="text" name="numberOfUser"  class="" disabled value="'.++$i.'">
 				</td>
 				<td class="">
 					<!-- Login uzytkownika -->
-					<input type="text" name="loginUser" class="" disabled value="Nick Usera">
+					<input type="text" name="loginUser" class="" disabled value="'.$nick.'">
 				</td>
 				<td class="">
 					<!-- Imie uzytkownika -->
-					<input type="text" name="nameUser" class="" disabled value="Imie Usera">
+					<input type="text" name="nameUser" class="" disabled value="'.$imie.'">
 				</td>
 				<td class="">
 					<!-- Nazwisko uzytkownika -->
-					<input type="text" name="surnameUser" class="" disabled value="Nazwisko Usera">
+					<input type="text" name="surnameUser" class="" disabled value="'.$nazwisko.'">
 				</td>
 				<td class="">
 					<!-- Dziennik uzytkownika -->
-					<!-- href="#nothing" <-- przejdz do dziennika uzytkownika -->
-					<a href="#nothing">Dziennik</a>
+					<!-- href="...?Dziennik=$nick" <-- przejdz do dziennika uzytkownika -->
+					<a href="...?Dziennik='.$nick.'">'.$dziennik.'</a>
 				</td>
 				<td class="">
 					<!-- Dodaj nagane -->
@@ -66,11 +81,14 @@
 				</td>
 				<td class="">
 					<!-- Wyslij uzytkownikowi wiadomosc mailowa -->
-					<a href="mailto: adres e-mail ">wyslilj</a>
+					<a href="mailto: adres e-mail ">wyslij</a>
 				</td>
-			</tr>
+                            </tr> ';
+                        }
+                      }
+                    ?>
 		</table>
-		<input type="checkbox" name="selectAll" required="required">Zaznacz wszystkie
+		<input type="checkbox" name="selectAll"">Zaznacz wszystkie
 		<input type="submit" value="Zatwierdz">
 	</form>
 </div>

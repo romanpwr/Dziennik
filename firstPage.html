@@ -7,15 +7,16 @@
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-alert('Load was performed.');
+//alert('Load was performed.');
 	$('#left').load('firstText.html');
+        $('#right').load('getInscription.php');
 	
 	$("#glowna").click(function(){
 		$('#left').load('firstText.html');});	
 	$("#dodajZ").click(function(){
-		$('#left').load('addEvent.html');});	
+		$('#left').load('addInscription.php');});	
 	$("#edycjaZ").click(function(){
-		$('#left').load('editEvent.html');});	
+		$('#left').load('editInscription.php');});	
 	$("#redakt").click(function(){
 		$('#left').load('addEditor.php');});
 	$("#oMnie").click(function(){
@@ -68,8 +69,8 @@ alert('Load was performed.');
         </div>
         <div id="right">RIGHT
 			<ul>
-			<li><a href="#nothing" id="El1" class="zdarzenia"> Element1 </a></li>
-			<li><a href="#nothing" id="El2" class="zdarzenia"> Element2 </a></li>
+			<li><a href="getInscription.php" id="El1" class="zdarzenia"> Pobierz </a></li>
+			<li><a href="getInscription.php" id="El2" class="zdarzenia"> wpisy </a></li>
 			</ul>
         </div>
     

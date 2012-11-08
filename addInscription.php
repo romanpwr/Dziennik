@@ -11,8 +11,7 @@ Czyli przed wywołaniem skryptu trzeba dodał do sesji 'dziennik'!
  (Ewentualnie można przerobić zeby zawsze dodawac nick osoby dodającej wpis.)
  
  **/
-echo $_SESSION['dziennik'];
-echo $_SESSION['login'];
+
 if (isset($_SESSION['dziennik']) && strlen($_SESSION['dziennik'])>1) {
 if(isset($_POST['submit'])) {
     $login = $_SESSION['login'];
