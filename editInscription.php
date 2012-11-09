@@ -15,10 +15,15 @@ include("connection.php");
 if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
 $idWpisu = $_GET['idWpisu'];
 $dziennik = $_SESSION['dziennik'];
+$nick = $_SESSION['login'];
 $query = mysql_query("SELECT * FROM wpisy WHERE IdWpis='$idWpisu' AND IdDziennika='$dziennik'");
+$spr1 = mysql_query ("SELECT * FROM redaktorzy WHERE NazwaDziennika='$dziennik' AND NickRed = '$nick'");
 
 if (mysql_num_rows($query)==1) { 
     $result = mysql_fetch_array($query);
+	if (mysql_num_rows($spr1) == 1 || $result['IdDziennika'] == $nick){
+	$red = mysql_fetch_array($spr1);
+	if ($red['EdycjaAutora']=='TAK' && $result['IdDziennika'] == $result['NickRed'] || $red['EdycjaRedaktora'] =='TAK' && $result['NickRed'] != $result['IdDziennika'] || $result['IdDziennika'] == $nick){
     $tytul = $result['Tytul'];
     $wpis = $result['Tresc'];
  
@@ -90,6 +95,19 @@ if(isset($_POST['submit'])) {
 
 <?php
 } else {
+$tytul = "";
+$wpis = "";
+echo '<br><span style="color: red; font-weight: bold;">Nie masz uprawnień do edycji tego wpisu.</span><br>' ;
+} 
+}
+else {
+$tytul = "";
+$wpis = "";
+echo '<br><span style="color: red; font-weight: bold;">Nie masz uprawnień do edycji tego wpisu.</span><br>' ;
+} 
+
+
+}else {
     $tytul = "";
     $wpis = "";
     echo '<br><span style="color: red; font-weight: bold;">Brak wpisu w bazie lub nie należy on do wybranego dziennika.</span><br>' ;

@@ -1,4 +1,4 @@
-<?php 
+ï»¿<?php 
 session_start();
 include("connection.php");
 
@@ -11,6 +11,8 @@ if (isset($_GET['IdWpisu']))
         $wpis=  mysql_fetch_assoc($result);    
         $tytul=$wpis['Tytul'];
         $tresc=$wpis['Tresc'];
+		$query = mysql_query("SELECT * FROM zalaczniki WHERE idwpisu = '".$IdWpisu."'");
+
 ?>
 
 <html>
@@ -31,16 +33,35 @@ if (isset($_GET['IdWpisu']))
         </div>
 	<!-- Multimedia -->
 	<div id="mediaList" name="mediaList"> 
-	<ul name="photoList">
-		<li>
-			<a href="URL#???"><img src="sciezka do zdjecia" name="foto"></a>
-		</li>
-	</ul>
-	</div>
+	<?php
+	$i = 0;
+	while ($row = mysql_fetch_array($query, MYSQL_BOTH)){
+	if ($i ==0){
+	
+	echo '
+	<ul name="photoList">';
+	}
+		echo'<li>
+			
+				<img src="
+				'//miniaturka.php?foto='
+				.$row["url"].'" height="150" width="150">
+				<br>
+			
+		</li>';
+		
+		$i++;
+		}
+	if ($i != 0){
+	echo '</ul>';
+	}
+	?>
 	<div id="buttonsBox">
-		<form name="buttonForm" action="" method="POST">
+		<form name="buttonForm" action="editInscription.php?idWpisu=<?php echo $IdWpisu; ?>" method="POST">
 			<input type="submit" name="Edycja" value ="Edycja">
-			<input type="submit" name="Usun" value ="Usun">
+		</form>
+		<form name="buttonForm2" action="" method="POST">
+			<input type="submit" name="Usun" value ="Usun" disabled="disabled">
 		</form>
 	</div>
 	
@@ -51,9 +72,9 @@ if (isset($_GET['IdWpisu']))
 
 <?php
     } else {
-        echo '<br><span style="color: red; font-weight: bold;">B³¹d aplikacji! </span><br>';
+        echo '<br><span style="color: red; font-weight: bold;">Wybrano bÅ‚Ä™dny wpis! </span><br>';
     }
 } else {
-    echo '<br><span style="color: red; font-weight: bold;">B³¹d aplikacji! </span><br>';
+    echo '<br><span style="color: red; font-weight: bold;">Nie wybrano wpisu! </span><br>';
 }
 ?>
