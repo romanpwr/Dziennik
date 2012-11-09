@@ -38,7 +38,7 @@ if (isset($_GET['IdWpisu']))
 	</ul>
 	</div>
 	<div id="buttonsBox">
-		<form name="buttonForm" action="" method="POST">
+		<form name="buttonForm" action="editInscription.php?idWpisu=<?php echo $IdWpisu; ?>" method="POST">
 			<input type="submit" name="Edycja" value ="Edycja">
 			<input type="submit" name="Usun" value ="Usun">
 		</form>

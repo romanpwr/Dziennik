@@ -1,6 +1,7 @@
 <?php
     session_start();
     include("connection.php");
+    if (isset($_SESSION['dostep']) && $_SESSION['dostep']==1) {
     $result=mysql_query("SELECT * FROM uzytkownicy AS u LEFT JOIN dzienniki AS d ON u.Nick=d.IdDziennika");
 ?>
 
@@ -17,7 +18,7 @@
 <body>
 <div id="inside">
 <p>Lista uzytkownikow</p>
-	<form name="UsersList" action=""><br>
+<form name="UsersList" action="profile.php" method="POST"><br>
 		<table border="1">
 		<tr>
 		<th>Zaznacz</th>
@@ -41,7 +42,7 @@
                         $dziennik = $tab['Nazwa'];                        
                         echo '<tr>
 				<td  class="select">
-					<input type="checkbox" name="userSelected">
+					<input type="radio" name="userSelected" required="required">
 				</td>
 				<td class="">
 					<!-- Numeracja uzytkownika -->
@@ -60,9 +61,7 @@
 					<input type="text" name="surnameUser" class="" disabled value="'.$nazwisko.'">
 				</td>
 				<td class="">
-					<!-- Dziennik uzytkownika -->
-					<!-- href="...?Dziennik=$nick" <-- przejdz do dziennika uzytkownika -->
-					<a href="...?Dziennik='.$nick.'">'.$dziennik.'</a>
+					<a href="getInscription.php?Dziennik='.$nick.'">'.$dziennik.'</a>
 				</td>
 				<td class="">
 					<!-- Dodaj nagane -->
@@ -88,10 +87,15 @@
                       }
                     ?>
 		</table>
-		<input type="checkbox" name="selectAll"">Zaznacz wszystkie
-		<input type="submit" value="Zatwierdz">
+		<input type="submit" name="wyslij" value="Zatwierdz">
 	</form>
 </div>
 </body>
 
 </html>
+
+<?php
+    } else {
+        echo '<br><span style="color: red; font-weight: bold;">Dostep maja tylko administratorzy! </span><br>';
+    }
+?>

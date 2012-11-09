@@ -3,7 +3,9 @@ session_start();
 include("connection.php");
  
 if (isset($_SESSION['login'])) {
-        $dziennik=$_SESSION['login'];
+    if (isset($_GET['Dziennik'])) $_SESSION['dziennik']=$_GET['Dziennik'];
+    if (isset($_SESSION['dziennik'])) {
+        $dziennik=$_SESSION['dziennik'];
         $month=0;
         $year=0;            
         
@@ -50,8 +52,11 @@ if (isset($_SESSION['login'])) {
             }
             echo '</ul>';
         } else {
-            echo '<br><span style="color: blue; font-weight: bold;">Brak wpisów w podanym przedziale czasowym! </span><br>';
-        }   
+            echo '<br><span style="color: blue; font-weight: bold;">Brak wpisów w dzienniku! </span><br>';
+        }
+    } else {
+        '<br><span style="color: red; font-weight: bold;">B��d! Brak dziennika do wyswietlenia!</span><br>';
+    }    
 } else {
     echo '<br><span style="color: red; font-weight: bold;">Nie jesteś zalogowany lub zostałeś wylogowany! </span><br>';
 } 
