@@ -42,7 +42,7 @@
                         $dziennik = $tab['Nazwa'];                        
                         echo '<tr>
 				<td  class="select">
-					<input type="radio" name="userSelected" required="required">
+					<input type="radio" name="loginUser" value="'.$nick.'" required="required">
 				</td>
 				<td class="">
 					<!-- Numeracja uzytkownika -->
