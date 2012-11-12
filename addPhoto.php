@@ -83,6 +83,11 @@ if (isset($komunikaty)){
 ?>
 <head>
 
+<form method="post" action="uploadImg.php">
+<input type="hidden" name="idWpisu" value="<?php echo $idwpisu; ?>" />
+<input type="submit" name="wyslij" value ="Obejrzyj zdjęcia">
+</form>
+
 <title>Dodawanie zdjęć</title>
 <link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css">
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>

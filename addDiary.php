@@ -31,6 +31,7 @@ $result = mysql_query("INSERT INTO `dzienniki` (IdDziennika, Komentarze, Nazwa) 
 
 if ($result){
  $komunikaty.="Dziennik o nazwie ".$nazwa." został dodany.";
+ $_SESSION['dziennik']=$nick;
  $stop=true;
 }
 else { 

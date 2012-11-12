@@ -57,6 +57,8 @@ $searcherror = true;
  }
 }
 }
+
+
 $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika = '".$nick."'");
 
 ?>
