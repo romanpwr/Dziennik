@@ -55,7 +55,7 @@ if (isset($_SESSION['login'])) {
             echo '<br><span style="color: blue; font-weight: bold;">Brak wpisów w dzienniku! </span><br>';
         }
     } else {
-        '<br><span style="color: red; font-weight: bold;">B��d! Brak dziennika do wyswietlenia!</span><br>';
+        '<br><span style="color: red; font-weight: bold;">B��d! Brak dziennika do wyswietlenia!</span><br>';
     }    
 } else {
     echo '<br><span style="color: red; font-weight: bold;">Nie jesteś zalogowany lub zostałeś wylogowany! </span><br>';
