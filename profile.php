@@ -1,4 +1,3 @@
-﻿
 <?php
 session_start();
 include ("connection.php");
@@ -6,18 +5,16 @@ include ("connection.php");
 
 <?php
 if ($_SESSION['zalogowany']){
-
 if (isset($_POST['wyslij'])){
-$nick = $_POST['nickuser'];
-}
-else{
-$nick = $_SESSION['login'];
+    $nick = $_POST['loginUser'];
+} else {
+    $nick = $_SESSION['login'];
 }
 $komunikaty = '';
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM uzytkownicy WHERE nick='".$nick."' LIMIT 1"));
 echo mysql_error();
 if ($spr1[0]<1){
-$komunikaty .= '<font color="red"><b>Użytkownik o podanym nicku nie istnieje</b></font>';
+    $komunikaty .= '<font color="red"><b>Użytkownik o podanym nicku nie istnieje</b></font>';
 }
 if (!($komunikaty)){
 $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$nick."'");
@@ -49,8 +46,8 @@ $dataRej = $r['DataRej'];
 </fieldset>
 	</div>
 </body>
-<?php }
-else{
-echo '<br>Nie byłeś zalogowany albo zostałeś wylogowany<br><a href="login.php">Zaloguj się</a><br>';
+<?php 
+} else {
+    echo '<br>Nie byłeś zalogowany albo zostałeś wylogowany<br><a href="login.php">Zaloguj się</a><br>';
 }
 ?>
