@@ -23,15 +23,15 @@ $email = $_POST["email"];
 $spr6a = is_numeric($_POST["dDate"]);
 $spr7a = is_numeric($_POST["mDate"]);
 $spr8a = is_numeric ($_POST["yDate"]);
-if ($spr6a){
+
 $dzien = (int)$_POST["dDate"];
-}
-if ($spr7a){
+
+
 $mies = (int)$_POST["mDate"];
-}
-if ($spr8a){
+
+
 $rok = (int)$_POST["yDate"];
-}
+
 
 $data= $_POST["datepicker"];
 //kilka sprawdzen co do nicku i maila
