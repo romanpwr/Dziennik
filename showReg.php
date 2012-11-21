@@ -6,13 +6,20 @@ if (isset($_GET['IdWpisu']))
 {
     $IdWpisu=$_GET['IdWpisu'];
     $query="SELECT * FROM wpisy WHERE IdWpis=$IdWpisu";
-    $result=  mysql_query($query);
+	$dziennik = $_SESSION['dziennik'];
+	
+    $result=  mysql_query($query);	
+	date_default_timezone_set("Europe/Warsaw");
     if (mysql_num_rows($result)==1){
-        $wpis=  mysql_fetch_assoc($result);    
+        $wpis=  mysql_fetch_assoc($result);   
+		//do komentarzy, R.P.
+		$spr = mysql_query("SELECT Komentarze FROM Dzienniki WHERE IdDziennika='".$wpis['IdDziennika']."'");
+		$rowK = mysql_fetch_array($spr,MYSQL_ASSOC);		
+		//koniec, R.P.
         $tytul=$wpis['Tytul'];
         $tresc=$wpis['Tresc'];
 		$query = mysql_query("SELECT * FROM zalaczniki WHERE idwpisu = '".$IdWpisu."'");
-
+	
 ?>
 
 <html>
@@ -66,6 +73,16 @@ if (isset($_GET['IdWpisu']))
 	</div>
 	
 </div>
+<?php
+//echo 'komentowac: '.$rowK["Komentarze"].'';
+if($rowK["Komentarze"] == "TAK"){
+	include("addComment.php");
+	comment($IdWpisu);
+	include("showComments.php");
+	show($IdWpisu);
+}
+?>
+
 </body>
 
 </html>
