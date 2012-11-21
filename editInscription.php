@@ -16,27 +16,27 @@ if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
 $idWpisu = $_GET['idWpisu'];
 $dziennik = $_SESSION['dziennik'];
 $nick = $_SESSION['login'];
-$query = mysql_query("SELECT * FROM wpisy WHERE IdWpis='$idWpisu' AND IdDziennika='$dziennik'");
-$spr1 = mysql_query ("SELECT * FROM redaktorzy WHERE NazwaDziennika='$dziennik' AND NickRed = '$nick'");
-
-if (mysql_num_rows($query)==1) { 
-    $result = mysql_fetch_array($query);
-	if (mysql_num_rows($spr1) == 1 || $result['IdDziennika'] == $nick){
-	$red = mysql_fetch_array($spr1);
-	if ($red['EdycjaAutora']=='TAK' && $result['IdDziennika'] == $result['NickRed'] || $red['EdycjaRedaktora'] =='TAK' && $result['NickRed'] != $result['IdDziennika'] || $result['IdDziennika'] == $nick){
-    $tytul = $result['Tytul'];
-    $wpis = $result['Tresc'];
- 
 
 if(isset($_POST['submit'])) {    
     
     $tytul = $_POST['title'];
     $wpis = $_POST['inscription'];
-        
-    $query=mysql_query("UPDATE wpisy SET Tytul='$tytul',Tresc='$wpis' WHERE IdWpis='$idWpisu'");
+    $podroz = $_POST['trip'];
     
-    if ($query) {
-        echo '<br><span style="color: green; font-weight: bold;">Wpis został zmieniony! </span><br>';
+    $katalog = mysql_query("SELECT * FROM katalog WHERE Katalog='$podroz' AND IdDziennika='$dziennik'");
+    
+    if (mysql_num_rows($katalog)==1) {
+        
+        $idKatalog = mysql_fetch_assoc($katalog);        
+        $idKatalogu=$idKatalog['IdKatalog'];
+
+        $query=mysql_query("UPDATE wpisy SET IdKatalog='$idKatalogu',Tytul='$tytul',Tresc='$wpis' WHERE IdWpis='$idWpisu'");
+
+        if ($query) {
+            echo '<br><span style="color: green; font-weight: bold;">Wpis został zmieniony! </span><br>';
+        } else {
+            echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
+        }
     } else {
         echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
     }
@@ -47,22 +47,25 @@ if(isset($_POST['submit'])) {
 } else if(isset($_POST['delete'])) {
     //Przed skasowaniem dialogbox Yes/No by się przydać.
     $query= mysql_query("DELETE FROM wpisy WHERE IdWpis='$idWpisu'");
-	$query2=mysql_query("DELETE FROM zalaczniki WHERE idwpisu ='$idWpisu'");
     if ($query) {
         echo '<br><span style="color: green; font-weight: bold;">Wpis został usunięty! </span><br>';
         // Dobrze by było żeby nie zostawiać na stronie. Najlepiej info i powrót na index.
     } else {
-        echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>'.mysql_error();
-    }
-	if ($query2){
-	echo '<br><span style="color: green; font-weight: bold;">Załączniki wpisu zostały usunięte! </span><br>';
-        // Dobrze by było żeby nie zostawiać na stronie. Najlepiej info i powrót na index.
-    } else {
-        echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>'.mysql_error();
+        echo '<br><span style="color: red; font-weight: bold;">Błąd połączenia z bazą danych! </span><br>';
     }
 }
 
+$query = mysql_query("SELECT * FROM wpisy w LEFT JOIN katalog k ON w.IdKatalog=k.IdKatalog WHERE IdWpis='$idWpisu'");
+$spr1 = mysql_query ("SELECT * FROM redaktorzy WHERE NazwaDziennika='$dziennik' AND NickRed = '$nick'");
 
+if (mysql_num_rows($query)==1) {
+    $result = mysql_fetch_array($query);
+    if (mysql_num_rows($spr1) == 1 || $result['IdDziennika'] == $nick){
+	$red = mysql_fetch_array($spr1);
+	if ($red['EdycjaAutora']=='TAK' && $result['IdDziennika'] == $result['NickRed'] || $red['EdycjaRedaktora'] =='TAK' && $result['NickRed'] != $result['IdDziennika'] || $result['IdDziennika'] == $nick){
+            $tytul = $result['Tytul'];
+            $wpis = $result['Tresc']; 
+            $IdKatalogu = $result['IdKatalog'];
 ?>
 
 <link href="" type="text/css" rel="stylesheet"/>      
@@ -71,6 +74,20 @@ if(isset($_POST['submit'])) {
     <th>         
     <td>            
         <form name="editInscription" method="POST" action="editInscription.php?idWpisu=<?php echo $idWpisu?>">             
+        <p><label for="title">Podróż: </label> 
+          <?php
+            $podroze = mysql_query("SELECT * FROM Katalog WHERE IdDziennika='$dziennik'");
+            if (mysql_num_rows($podroze)>0) {
+                echo "<select name='trip'>";
+                while ($podroz=mysql_fetch_assoc($podroze)) {
+                    if ($IdKatalogu!=$podroz['IdKatalog']) echo '<option>'.$podroz['Katalog'].'</option>';
+                    else echo '<option selected="selected">'.$podroz['Katalog'].'</option>';
+                }
+                echo "</select>";
+            }
+          ?>
+            <a href="addTrip.php"><button type="button">Dodaj podróż</button></a>
+        </p>
         <p><label for="title">Tytuł zdarzenia: </label></p>                
         <p> <input type="text" name="title" value="<?php echo $tytul;?>" size="30" autofocus required/>                    
             <button> Uprawnienia </button>                 
@@ -106,20 +123,17 @@ $tytul = "";
 $wpis = "";
 echo '<br><span style="color: red; font-weight: bold;">Nie masz uprawnień do edycji tego wpisu.</span><br>' ;
 } 
-}
-else {
+} else {
 $tytul = "";
 $wpis = "";
 echo '<br><span style="color: red; font-weight: bold;">Nie masz uprawnień do edycji tego wpisu.</span><br>' ;
-} 
+}
 
-
-}else {
+} else {
     $tytul = "";
     $wpis = "";
     echo '<br><span style="color: red; font-weight: bold;">Brak wpisu w bazie lub nie należy on do wybranego dziennika.</span><br>' ;
 }   
-}
-else{
+} else {
  echo '<br><span style="color: red; font-weight: bold;">Nie został wpis, który ma być edytowany!</span><br>' ;
 }
