@@ -4,7 +4,7 @@
 * konfiguracja połączenia z bazą danych 
 ******************************************************/
     // serwer 
-    $mysql_server = "localhost:3306"; 
+    $mysql_server = "localhost"; 
     // admin 
     $mysql_admin = "dziennik_user"; 
     // hasło 
