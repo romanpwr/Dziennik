@@ -41,8 +41,11 @@ if(isset($_POST['submit'])) {
 
 ?>
 
-<link href="" type="text/css" rel="stylesheet"/>      
+<link href="" type="text/css" rel="stylesheet"/>  
 <title>Multimedialny dziennik podróży - dodawanie zdarzenia.</title>        
+
+<?php include ("ckeditor.php"); ?>
+
 <table>        
     <th>         
     <td>            
@@ -63,7 +66,7 @@ if(isset($_POST['submit'])) {
             <button disable="disable"> Uprawnienia </button>                 
         </p>                
         <p><label for="inscription">Wpis: </label></p>                
-        <p><textarea name="inscription" rows="20" cols="60" required="required"/></textarea></p>                
+        <p><textarea class="ckeditor" name="inscription" rows="20" cols="60"/></textarea></p>                
         <p class="center">                    
            <input type="reset" value="Wyczyść pola"/>                    
            <input type="submit" class="submit" name="submit" value="Zapisz"/>                
@@ -75,13 +78,13 @@ if(isset($_POST['submit'])) {
         <table>               
         <tr><td><label>Załącz zdjęcie: </label></td></tr>            
         <tr><td></td></tr>            
-        <tr><td><textarea>Tu będzie kontener multimediów. </textarea></td></tr>
+        <tr><td><label>Tu będzie kontener multimediów. </label></td></tr>
         <tr><td><label>Załącz video: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><textarea>Tu będzie kontener multimediów. </textarea> </td></tr>    
+        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>    
         <tr><td><label>Załącz plik audio: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><textarea>Tu będzie kontener multimediów. </textarea> </td></tr>                
+        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>                
         </table>
     </th>
 </table>
