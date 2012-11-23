@@ -13,9 +13,45 @@
 <title>Strona glowna</title>
 <link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css">
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-
+<script>
+$(document).ready(function() {
+$("#wpisz").click(function() {
+	$(this).attr("value","");
+	$(this).css("color","black");
+	});	
+	
+	$('.wyslij').click(function(){
+	var user = $('#wpisz').val();
+	var rows = $('.user');
+	if (user == "Podaj tu nick do szukania" || user == ""){
+	alert("Podaj nick");
+	}
+	else{
+	$('.usun').removeAttr('disabled');
+	rows.filter("#"+user).show();
+    rows.not("#"+user ).hide();
+	}
+	});
+	$('.usun').click(function(){
+	$('.usun').attr('disabled', 'disabled');
+	var rows = $('.user');
+	rows.show();
+	});
+	$('.addCaution').click(function(){
+	window.location = "adminSendReport.php?user="+$(this).attr("nick");
+	
+	});
+});
+</script>
 </head>
 <body>
+<div id="search_panel">
+			<!--<form name="searchForm" action="profile.php" method="POST"><br>-->
+			<input type="text" id="wpisz" size="25" name="wpisz" style="color:grey;" value="Podaj tu nick do szukania">
+			<input type="submit" class="wyslij" id="wyslij" name="wyslij" value="Szukaj">
+			<input type="submit" class="usun" id="usun" name="usun" value="Usun wyszukanie" disabled = "disabled">
+			<!--</form>-->
+		</div>	
 <div id="inside">
 <p>Lista uzytkownikow</p>
 <form name="UsersList" action="profile.php" method="POST"><br>
@@ -31,6 +67,7 @@
 		<th>Usun nagane</th>
 		<th>Usun uzytkownika</th>
 		<th>Wyslij wiadomosc</th>
+		<th>Rola</th>
 		</tr>
                     <?php
                        if (mysql_num_rows($result)>0) { 
@@ -39,8 +76,15 @@
                         $nick = $tab['Nick'];
                         $imie = $tab['Imie'];
                         $nazwisko = $tab['Nazwisko'];
-                        $dziennik = $tab['Nazwa'];                        
-                        echo '<tr>
+                        $dziennik = $tab['Nazwa'];  
+						if ($tab['Dostep'] == 1){
+						$rola = 'Administrator';
+						}
+						else{
+						$rola = 'User';
+						}
+						if ($nick != 'admin'){
+                        echo '<tr class="user" id="'.$nick.'">
 				<td  class="select">
 					<input type="radio" name="loginUser" value="'.$nick.'" required="required">
 				</td>
@@ -48,9 +92,9 @@
 					<!-- Numeracja uzytkownika -->
 					<input type="text" name="numberOfUser"  class="" disabled value="'.++$i.'">
 				</td>
-				<td class="">
+				<td class="login">
 					<!-- Login uzytkownika -->
-					<input type="text" name="loginUser" class="" disabled value="'.$nick.'">
+					<input type="text" name="loginUser1" class="" disabled value="'.$nick.'">
 				</td>
 				<td class="">
 					<!-- Imie uzytkownika -->
@@ -66,7 +110,9 @@
 				<td class="">
 					<!-- Dodaj nagane -->
 					<!-- Przycisk zostanie zmieniony obrazkiem (+) -->
-					<input type="button" name="addCaution" class="" value="Dodaj nagane">
+					<form>
+					<input type="button" name="addCaution" class="addCaution" nick="'.$nick.'" value="Dodaj nagane">
+					</form>
 				</td>
 				<td class="">
 					<!-- Usun nagane -->
@@ -82,7 +128,12 @@
 					<!-- Wyslij uzytkownikowi wiadomosc mailowa -->
 					<a href="mailto: adres e-mail ">wyslij</a>
 				</td>
+				<td class="">
+					<!-- Rola uzytkownika w systemie-->
+					<input type="text" name="role" class="" disabled value="'.$rola.'">
+				</td>
                             </tr> ';
+							}
                         }
                       }
                     ?>

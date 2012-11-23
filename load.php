@@ -1,9 +1,22 @@
 ﻿<?php
 include("connection.php");
 if(isset($_GET['a']) && $_GET['a'] == 'zgloszenie'){
+
 	$query = mysql_query("SELECT * FROM zgloszenia ORDER BY `IdZgloszenia` ASC");
+	
 	while ($row = mysql_fetch_array($query, MYSQL_BOTH)){
-		$zgloszenie.= '<option id="'.$row['IdZgloszenia'].'" value="'.$row['IdZgloszenia'].'">'.$row['Temat'].'</option>';
+	    switch($row['StatusZgl']){
+			case 0:
+				$stan = "NEW";
+				break;
+			case 1:
+				$stan = "OTWARTE";
+				break;
+			case 2:
+				$stan = "ZAMKNIETE";
+				break;
+		}
+		$zgloszenie.= '<option id="'.$row['IdZgloszenia'].'" zigi="'.$row['Temat'].'" url="'.$row['Url'].'" name="IdZgl" value="'.$stan.'">['.$stan.'] '.$row['Temat'].'</option>';
 	}
 echo $zgloszenie;
 }
