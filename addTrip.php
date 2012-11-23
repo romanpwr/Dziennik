@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include("connection.php");
 include("getbrowser.php");
@@ -88,9 +88,6 @@ if (isset($_POST['submit'])) {
 
 <link href="" type="text/css" rel="stylesheet"/>      
 <title>Multimedialny dziennik podróży - dodawanie wycieczki.</title>  
-
-<?php include ("ckeditor.php"); ?>
-
 <script language="javascript">  
 function dateFun(){
    var datefield=document.createElement("input")
@@ -116,7 +113,6 @@ function dateFun(){
        }
 }
 </script>  
-    
 <div id="container" >
 <form name="addTrip" method="POST" action="addTrip.php">                
 <p><label for="title">Tytuł wycieczki: </label></p>                
@@ -141,7 +137,7 @@ function dateFun(){
 			<!-- -------------------------------------------------------------- -->
 			</div>
 <p><label for="trip">Opis: </label></p>                
-<p><textarea class="ckeditor" name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
+<p><textarea name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
 <p class="center">                    
    <input type="reset" value="Wyczyść pola"/>                    
    <input id="addTrip" type="submit" class="submit" name="submit" value="Zapisz"/>              
@@ -152,6 +148,7 @@ function dateFun(){
 	//wywolaj po otwarciu strony
 	window.onload=dateFun ; 
 </script>
+    
 <?php
 } else {
     echo '<br><span style="color: blue; font-weight: bold;">Nie posiadasz dziennika!</span><br>';

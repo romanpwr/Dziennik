@@ -1,4 +1,13 @@
-﻿<html>
+﻿<?php 
+include ("connection.php");
+
+
+if (isset($_POST['zamknij'])){
+$id = $_POST['id'];
+$update = mysql_query("UPDATE zgloszenia SET StatusZgl = 2 WHERE IdZgloszenia ='$id'");
+}
+?>
+<html>
 <head>
 
 <title>Strona glowna</title>
@@ -61,27 +70,58 @@ $(document).ready(function() {
 	}).change();
 */
 	$('.reportFiltr2').change(function(){
-
-		var target = $('#filtr2').val();
-		if ( target != "ALL"){
+		zmien();
+	}).change();
+	$('.reportFiltr').change(function(){
+		zmien();
+	}).change();
+	function zmien(){
+	var target1 = $('#filtr1').val();
+	var target = $('#filtr2').val();
+	if ( target != "ALL" && target1 != "ALL"){
+	    $('.report').children('option').hide();
+		$('.report').children('option[zigi*="'+target1+'"]').show(); 
+		$('.report').children('option[value!="'+target+'"]').hide(); 
+	}
+		else if (target != "ALL" && target1 == "ALL"){
 		$('.report').children('option').hide();
 		$('.report').children('option[value="'+target+'"]').show(); 
+		}
+		else if (target1!="ALL" && target == "ALL"){
+		$('.report').children('option').hide();
+		$('.report').children('option[zigi*="'+target1+'"]').show(); 
 		}
 		else{
 		$('.report').children('option').show();
      	}
-	}).change();
-	$('.reportFiltr').change(function(){
-		var target = $('#filtr1').val();
-		if (target != 'all'){
-		$('.report').children('option').hide();
-		$('.report').children('option[zigi*="'+target+'"]').show(); 
+	}
+	$('.zadaniaOpt').change(function(){
+		var zad = $('#zadania').val();
+		var x = $('.report option:selected').val();
+		if (zad == "select"){
+		$('.zglAction').attr('disabled', 'disabled');
+		}
+		else if (x!=null){
+		$('.zglAction').removeAttr('disabled');
 		}
 		else{
-		$('.report').children('option').show();
+		$('#zadania option[value="select"]').attr("selected","selected") ;
+		alert ("Wybierz zgłoszenie");
 		}
-		
 	}).change();
+	$('.zglAction').click(function(){
+	var zad = $('#zadania').val();
+	if (zad == "open"){
+	var val = $('.report option:selected').attr('zigi');
+	var id = $('.report option:selected').attr('id');
+	var url = $('.report option:selected').attr('url');
+	if (val == "zgłoszenie użytkownika"){
+	alert("Zostaniesz przekierowany na profil użytkownika");
+	window.location = url+"&zgl="+id;
+	}
+	
+	}
+	});
 });
 </script>
 </head>
@@ -90,7 +130,7 @@ $(document).ready(function() {
 <div id="container">
 	<div id="filtry">
 	    <select class="reportFiltr" id="filtr1" name="filtr1" style="width:200px">
-		<option id="all" value="all">Wszystkie</option>
+		<option id="all" value="ALL">Wszystkie</option>
 		<option id="new_diary" value="dodanie dziennika">Dodanie dziennika</option>
 		<option id="błąd" value="błędny komentarz">Błędny komentarz</option>
 		<option id="błąd2" value="błędny wpis">Błędny wpis</option>
@@ -106,7 +146,7 @@ $(document).ready(function() {
 		<option id="zamkniete" value="ZAMKNIETE">Zamknięte</option>
 	</select>
 	</div>
-	<form name="reportReact" action="" method="POST">
+	<!--<form name="reportReact"> -->
     <div id="listaZgloszen">
     <select class="report" style="width:300px" size="20">
 		
@@ -121,14 +161,16 @@ $(document).ready(function() {
 	</div>
 	<div id="reakcja" style="float:rigth">
 	
-	<select class="option" style="width:200px" name="option">
-		<option>Wybierz działanie</option>
+	<select class="zadaniaOpt" name="zadania" id="zadania" style="width:200px" name="option">
+		<option value="select">Wybierz działanie</option>
+		<option value="open">Odpowiedz</option>
+		<option value="close">Zamknij</option>
 		
 	</select>
-		<input type="submit" name="zglAction" value ="Wykonaj">
+		<input type="submit" class="zglAction" id="zglAction" name="zglAction" value ="Wykonaj">
 		
-		<!-- etc w zaleznosci od humoru -->
-	</form>
+		<!--etc w zaleznosci od humoru
+	 </form>-->
 	</div>
 	
 </div>
