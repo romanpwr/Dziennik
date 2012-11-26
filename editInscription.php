@@ -68,10 +68,7 @@ if (mysql_num_rows($query)==1) {
             $IdKatalogu = $result['IdKatalog'];
 ?>
 
-<link href="" type="text/css" rel="stylesheet"/>   
-
-<?php include("ckeditor.php"); ?>
-
+<link href="" type="text/css" rel="stylesheet"/>      
 <title>Multimedialny dziennik podróży - dodawanie zdarzenia.</title>        
 <table>        
     <th>         
@@ -96,7 +93,7 @@ if (mysql_num_rows($query)==1) {
             <button> Uprawnienia </button>                 
         </p>                
         <p><label for="inscription">Wpis: </label></p>                
-        <p><textarea class="ckeditor" name="inscription" rows="20" cols="60" /><?php echo $wpis;?></textarea></p>                
+        <p><textarea name="inscription" rows="20" cols="60" required/><?php echo $wpis;?></textarea></p>                
         <p class="center">                    
            <input type="submit" name="reset" value="Wyczyść pola"/>                    
            <input type="submit" name="submit" value="Zapisz"/>
@@ -109,13 +106,13 @@ if (mysql_num_rows($query)==1) {
         <table>               
         <tr><td><label>Załącz zdjęcie: </label></td></tr>            
         <tr><td><form name="addInscription" method="POST" action="addPhoto.php"><input type="hidden" name="idWpisu" value="<?php echo $idWpisu; ?>" /> <input type="submit" class="submit" name="wpis" value="Przejdź do galerii zdjęć"></form></td></tr>            
-        <tr><td><label>Tu będzie kontener multimediów. </label></td></tr>
+        <tr><td><textarea>Tu będzie kontener multimediów. </textarea></td></tr>
         <tr><td><label>Załącz video: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>    
+        <tr><td><textarea>Tu będzie kontener multimediów. </textarea> </td></tr>    
         <tr><td><label>Załącz plik audio: </label></td></tr>    
         <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>                
+        <tr><td><textarea>Tu będzie kontener multimediów. </textarea> </td></tr>                
         </table>
     </th>
 </table>

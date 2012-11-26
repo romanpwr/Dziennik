@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function getbrowser() {
     if(isset($_SERVER['HTTP_USER_AGENT'])) {

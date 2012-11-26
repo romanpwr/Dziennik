@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     // Pobiera z GET'a Id wycieczki
 
 session_start();
@@ -94,9 +94,6 @@ if (isset($_POST['submit'])) {
 
 <link href="" type="text/css" rel="stylesheet"/>      
 <title>Multimedialny dziennik podróży - edytowanie wycieczki.</title>  
-
-<?php include ("ckeditor.php"); ?>
-
 <script language="javascript">  
 function dateFun(){
    var datefield=document.createElement("input")
@@ -146,7 +143,7 @@ function dateFun(){
 			<!-- -------------------------------------------------------------- -->
 			</div>
 <p><label for="trip">Opis: </label></p>                
-<p><textarea class="ckeditor" name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
+<p><textarea name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
 <p class="center">                    
    <input type="reset" value="Wyczyść pola"/>                    
    <input id="addTrip" type="submit" class="submit" name="submit" value="Zapisz"/>              
