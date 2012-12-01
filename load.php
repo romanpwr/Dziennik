@@ -25,7 +25,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'info')       {
     if(intval($_GET['IdZgloszenia'])) {
 		$query = mysql_query("SELECT * FROM zgloszenia WHERE IdZgloszenia='".$_GET['IdZgloszenia']."'");
 		$row = mysql_fetch_array($query);
-		$zgloszenie = array('0' => $row['IdZgloszenia'], '1' => $row['Tresc']);
+		$zgloszenie = array('0' => "Zgłoszenie z dnia: ".$row['DataZgl']." od użytkownika: ".$row["NickUsera"], '1' => $row['Tresc']);
 	
 	echo json_encode($zgloszenie);
 	}
