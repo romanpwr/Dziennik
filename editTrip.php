@@ -6,7 +6,8 @@ include("connection.php");
 include("getbrowser.php");
 
 if (isset($_SESSION['dziennik'])) {
-
+$login = $_SESSION['login'];
+// Sprawdzanie czy dziennik został zaakceptowany przez admina
 if (isset($_GET['IdTrip'])) {
    
     $result= mysql_query("SELECT * FROM katalog WHERE IdKatalog=".$_GET['IdTrip']);
@@ -51,7 +52,7 @@ if (isset($_POST['submit'])) {
             $daty=false;
         } else $rok = (int)$_POST['yDateRoz'];
         if (!is_numeric($_POST['dDateZak'])) {
-            echo '<br><span style="color: blue; font-weight: bold;">DzieA� to liczba z przedziału 1..31!</span><br>';
+            echo '<br><span style="color: blue; font-weight: bold;">Dzień to liczba z przedziału 1..31!</span><br>';
             $daty=false;
         } else $dzienZak = (int)$_POST['dDateZak'];
         if (!is_numeric($_POST['mDateZak'])) {
@@ -79,7 +80,7 @@ if (isset($_POST['submit'])) {
     
     if ( $dataRoz > $dataZak ) {
         $daty=false;
-        echo '<br><span style="color: green; font-weight: bold;">Data zakoA�czenia musi był być pó�niejsza od daty rozpoczęcia!</span><br>'; 
+        echo '<br><span style="color: green; font-weight: bold;">Data zakończenia musi był być późniejsza od daty rozpoczęcia!</span><br>'; 
     }
     
     if ($daty) {        
@@ -93,7 +94,10 @@ if (isset($_POST['submit'])) {
 ?>
 
 <link href="" type="text/css" rel="stylesheet"/>      
-<title>Multimedialny dziennik podróży - edytowanie wycieczki.</title>  
+<title>Multimedialny dziennik podrÃ³ży - edytowanie wycieczki.</title>  
+
+<?php include ("ckeditor.php"); ?>
+
 <script language="javascript">  
 function dateFun(){
    var datefield=document.createElement("input")
@@ -143,7 +147,7 @@ function dateFun(){
 			<!-- -------------------------------------------------------------- -->
 			</div>
 <p><label for="trip">Opis: </label></p>                
-<p><textarea name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
+<p><textarea class="ckeditor" name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
 <p class="center">                    
    <input type="reset" value="Wyczyść pola"/>                    
    <input id="addTrip" type="submit" class="submit" name="submit" value="Zapisz"/>              
@@ -157,9 +161,9 @@ function dateFun(){
     
 <?php
 } else {
-    echo '<br><span style="color: red; font-weight: bold;">Nie został wybrany wpis do edycji!</span><br>';
+    echo '<br><span style="color: red; font-weight: bold;">Nie została wybrana podróż do edycji!</span><br>';
 }
-} else {
+}else {
     echo '<br><span style="color: blue; font-weight: bold;">Nie posiadasz dziennika!</span><br>';
 }
 ?>

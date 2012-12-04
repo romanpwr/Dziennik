@@ -119,6 +119,21 @@ $(document).ready(function() {
 	alert("Zostaniesz przekierowany na profil użytkownika");
 	window.location = url+"&zgl="+id;
 	}
+	else
+	if (val == "dodanie dziennika"){
+	alert("Zostaniesz przekierowany do informacji o dzienniku");
+	window.location = url+"&zgl="+id;
+	}
+	else
+	if (val == "błędny komentarz"){
+	alert("Zostaniesz przekierowany do komentarza");
+	window.location = url+"&zgl="+id;
+	}
+	else
+	if (val == "błędny wpis"){
+	alert("Zostaniesz przekierowany do wpisu");
+	window.location = url+"&zgl="+id;
+	}
 	
 	}
 	});

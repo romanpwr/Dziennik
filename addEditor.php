@@ -21,6 +21,16 @@ header('Location: delEditor.php?id='.$_POST['redaktor']);
 <?php
 if (isset($_SESSION['zalogowany'])){
 $nick = $_SESSION['login'];
+$error = false;
+if ($_SESSION['dziennik'] == $nick){
+$zgl = mysql_query("SELECT * FROM zgloszenia WHERE NickUsera ='$nick' AND Temat='dodanie dziennika' AND Url='/adminAddDiary.php?id=$nick'");
+while ($row = mysql_fetch_array($zgl)){
+if ($row['StatusZgl'] <> 2){
+$error = true;
+}
+}
+}
+if (!$error){
 $spr1 = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM dzienniki WHERE IdDziennika='".$nick."' LIMIT 1"));
 $komunikaty = '';
 $searcherror = false;
@@ -135,9 +145,14 @@ echo'</table>
 </script>
 </body>
 <?php
+
 }
+
 else{
 echo 'Nie posiadasz swojego dziennika, możesz założyć go <a href="addDiary.php">TUTAJ</a><br />.';
+}
+}
+else { echo'<br><span style="color: red; font-weight: bold;">Twój dziennik nie został jeszcze zaakceptowany przed admina.</span><br>' ;
 }
 }
 else{
