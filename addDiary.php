@@ -30,6 +30,9 @@ $opt = ''.'NIE';
 $result = mysql_query("INSERT INTO `dzienniki` (IdDziennika, Komentarze, Nazwa) VALUES ('".$nick."','".$opt."','".$nazwa."')");
 
 if ($result){
+date_default_timezone_set("Europe/Warsaw");
+$data = date('Y-m-d');
+$zgl = mysql_query("INSERT INTO `zgloszenia` (NickUsera, Temat, Tresc, Url, DataZgl, StatusZgl) VALUES('$nick','dodanie dziennika','Proszę o dodanie dziennika do systemu','/adminAddDiary.php?id=$nick','$data','0')");
  $komunikaty.="Dziennik o nazwie ".$nazwa." został dodany.";
  $_SESSION['dziennik']=$nick;
  $stop=true;

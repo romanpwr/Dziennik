@@ -4,7 +4,19 @@ include("connection.php");
 include("getbrowser.php");
 
 if (isset($_SESSION['dziennik'])) {
+$login = $_SESSION['login'];
 
+// Sprawdzanie czy dziennik został zaakceptowany przez admina
+$error = false;
+if ($_SESSION['dziennik'] == $login){
+$zgl = mysql_query("SELECT * FROM zgloszenia WHERE NickUsera ='$login' AND Temat='dodanie dziennika' AND Url='/adminAddDiary.php?id=$login'");
+while ($row = mysql_fetch_array($zgl)){
+if ($row['StatusZgl'] <> 2){
+$error = true;
+}
+}
+}
+if (!$error){
     date_default_timezone_set("Europe/Warsaw");
 $dzien = date('d');
 $mies = date('m');
@@ -26,10 +38,10 @@ if (isset($_POST['submit'])) {
     else $opis = "";
     
    if (getbrowser()=='ie' || getbrowser()=='firefox') {
-        // wczytanie dat dla przegl�darek bez typu DATE
+        // wczytanie dat dla przegl¹darek bez typu DATE
         
         if (!is_numeric($_POST['dDateRoz'])) {
-            echo '<br><span style="color: blue; font-weight: bold;">DzieA� to liczba z przedziału 1..31!</span><br>';
+            echo '<br><span style="color: blue; font-weight: bold;">Dzień to liczba z przedziału 1..31!</span><br>';
             $daty=false;
         } else $dzien = (int)$_POST['dDateRoz'];        
         if (!is_numeric($_POST['mDateRoz'])) {
@@ -41,7 +53,7 @@ if (isset($_POST['submit'])) {
             $daty=false;
         } else $rok = (int)$_POST['yDateRoz'];
         if (!is_numeric($_POST['dDateZak'])) {
-            echo '<br><span style="color: blue; font-weight: bold;">DzieA� to liczba z przedziału 1..31!</span><br>';
+            echo '<br><span style="color: blue; font-weight: bold;">Dzień to liczba z przedziału 1..31!</span><br>';
             $daty=false;
         } else $dzienZak = (int)$_POST['dDateZak'];
         if (!is_numeric($_POST['mDateZak'])) {
@@ -69,7 +81,7 @@ if (isset($_POST['submit'])) {
     
     if ( $dataRoz > $dataZak ) {
         $daty=false;
-        echo '<br><span style="color: green; font-weight: bold;">Data zakoA�czenia musi być pó�niejsza od daty rozpoczęcia!</span><br>'; 
+        echo '<br><span style="color: green; font-weight: bold;">Data zakończenia musi być późniejsza od daty rozpoczęcia!</span><br>'; 
     }
     
     if ($daty) {
@@ -88,6 +100,9 @@ if (isset($_POST['submit'])) {
 
 <link href="" type="text/css" rel="stylesheet"/>      
 <title>Multimedialny dziennik podróży - dodawanie wycieczki.</title>  
+
+<?php include ("ckeditor.php"); ?>
+
 <script language="javascript">  
 function dateFun(){
    var datefield=document.createElement("input")
@@ -113,6 +128,7 @@ function dateFun(){
        }
 }
 </script>  
+    
 <div id="container" >
 <form name="addTrip" method="POST" action="addTrip.php">                
 <p><label for="title">Tytuł wycieczki: </label></p>                
@@ -137,7 +153,7 @@ function dateFun(){
 			<!-- -------------------------------------------------------------- -->
 			</div>
 <p><label for="trip">Opis: </label></p>                
-<p><textarea name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
+<p><textarea class="ckeditor" name="trip" rows="20" cols="60" /><?php echo $opis; ?></textarea></p>                
 <p class="center">                    
    <input type="reset" value="Wyczyść pola"/>                    
    <input id="addTrip" type="submit" class="submit" name="submit" value="Zapisz"/>              
@@ -148,9 +164,11 @@ function dateFun(){
 	//wywolaj po otwarciu strony
 	window.onload=dateFun ; 
 </script>
-    
 <?php
+}
+else { echo'<br><span style="color: red; font-weight: bold;">Twój dziennik nie został jeszcze zaakceptowany przed admina.</span><br>' ;
+}
 } else {
-    echo '<br><span style="color: blue; font-weight: bold;">Nie posiadasz dziennika!</span><br>';
+    echo '<br><span style="color: red; font-weight: bold;">Nie został wybrany dziennik, do którego wpis ma być dodany lub nie posiadasz dziennika!</span><br>' ;
 }
 ?>
