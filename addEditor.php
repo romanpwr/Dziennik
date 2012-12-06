@@ -29,17 +29,35 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 <title>Dodawanie redaktorów do dziennika</title>
 <link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css">
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-
+<script>
+$(document).ready(function(){
+	$('.dodaj').click(function(){
+	var form_data = {
+			nickred: $("#wpisz").val(),
+			dodaj: true,
+			addred: 1
+		};
+	$.ajax({
+			type: "POST",
+			url: "addEditor2.php",
+			data: form_data,
+		}).done(function( response ) {
+		$("#message").html(response);
+		});
+	
+	});
+});
+</script>
 </head>
 <body>
 <div id="inside">
 <fieldset>
 <p>Dodawanie nowego redaktora:</p>
-<?php echo $komunikaty; ?>
-	<form name="searchEditorForm" method="POST" action="addEditor.php"><br>
+<div id="message"></div>
+	<!--<form name="searchEditorForm" method="POST" action="addEditor.php"><br> -->
 		<input type="text" id="wpisz" size="25" style="color:grey;" name="nickred" required="required" value="<?php if (isset($_POST['nickred'])) {echo $_POST['nickred'];} else {?>Podaj tu nick do szukania<?php }?>">
-		<input type="submit" name="dodaj" value="Dodaj">
-	</form>
+		<input type="submit" class="dodaj" id="dodaj" name="dodaj" value="Dodaj">
+	<!--</form>-->
 	</fieldset>
 </div>
 <br>
