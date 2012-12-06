@@ -1,0 +1,170 @@
+body {
+    font-family: "Times New Roman", serif;
+}
+
+#inside{
+    width: 1210px;
+    height: auto;
+}
+
+#inscription {
+    width: 900px;
+    height: 654px;
+    float: left;
+}
+
+#title {
+    width: 900px;
+    height: 20px;
+}
+
+#entry {
+    width: 900px;
+    height: 585px;
+}
+
+#buttonsbox {
+    width: 900px;
+    height: 28px;
+    clear: both;
+}
+
+#button {
+    width: auto;
+    height: 28px;
+    margin: 0px;
+    float: left;
+}
+
+/* style dla linii czasu*/
+#timeline {
+    margin      : auto;
+    border      : 1px solid black;
+    padding     : 0px;
+    width       : 300px;
+    height      : 640px;
+    
+    font-size   : 10pt;
+    text-align  : left;
+    
+    float       : right;
+} 
+
+#liniaCzasu {
+    border      : none;
+    padding     : 0px;
+    width       : 50px;
+    height      : 600px;
+    
+    text-align  : left;
+    float       : left;     
+}
+
+#lata {
+   margin      : 0px;
+   width       : 40px;
+   height      : 600px;
+   
+   float       : left;   
+}
+
+#rok {
+    margin      : 0px;
+    border      : none;
+    padding     : 0px;
+    width       : 40px;
+    height      : 10px;
+}
+
+#linia {
+   margin      : 0px;
+   border      : none;
+   padding     : 0px;
+   width       : 10px;
+   height      : 600px;
+   
+   float       : right;
+}
+
+#element {
+   margin      : 0px;
+   border      : none;
+   padding     : 0px;
+   width       : 10px;
+   height      : 10px;
+}
+
+#wycieczki {
+    border      : none;
+    padding     : 0px;
+    width       : 220px;
+    height      : 600px;
+    
+    text-align  : left;
+    float       : right;
+}
+
+#wycieczka {
+    margin      : 0px;
+    border      : none;
+    padding     : 0px;
+    width       : 220px;
+    height      : 10px;
+}
+
+#btn {
+    margin      : 0px;
+    width       : 100%;
+    height      : 20px; 
+}
+
+#liniaCzasuWpisy {
+    border      : none;
+    padding     : 0px;
+    width       : 80px;
+    height      : 600px;
+    
+    text-align  : left;
+    float       : left;    
+}
+
+#daty {
+   margin      : 0px;
+   width       : 70px;
+   height      : 600px;
+   
+   float       : left;   
+}
+
+#data {
+    margin      : 0px;
+    border      : none;
+    padding     : 0px;
+    width       : 70px;
+    height      : 10px;
+}
+
+#wpisy {
+    border      : none;
+    padding     : 0px;
+    width       : 200px;
+    height      : 600px;
+    
+    text-align  : left;
+    float       : right;
+}
+
+#wpis {
+    margin      : 0px;
+    border      : none;
+    padding     : 0px;
+    width       : 180px;
+    height      : 10px;
+}
+
+#btn2 {
+    clear       : both;
+    margin      : 0px;
+    width       : 100%;
+    height      : 20px; 
+}
