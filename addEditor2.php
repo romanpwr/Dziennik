@@ -68,7 +68,7 @@ $searcherror = true;
  }
 }
 }
-echo $komunikaty;
+
 }
 
 else{

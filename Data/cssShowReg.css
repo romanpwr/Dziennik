@@ -3,7 +3,7 @@ body {
 }
 
 #inside{
-    width: 1260px;
+    width: 1210px;
     height: auto;
 }
 
@@ -20,12 +20,7 @@ body {
 
 #entry {
     width: 900px;
-    height: 445px;
-}
-
-#simplegallery {
-    width: 900px;
-    height: 160px;
+    height: 585px;
 }
 
 #buttonsbox {
@@ -41,12 +36,6 @@ body {
     float: left;
 }
 
-#komentarze {
-    clear: both;
-    width: 100%;
-    height: auto;
-}
-
 /* style dla linii czasu*/
 #timeline {
     margin      : auto;
@@ -58,7 +47,7 @@ body {
     font-size   : 10pt;
     text-align  : left;
     
-    float       : left;
+    float       : right;
 } 
 
 #liniaCzasu {
