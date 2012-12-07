@@ -1,5 +1,6 @@
-<?php 
+﻿<?php 
 session_start();
+ date_default_timezone_set("Europe/Warsaw");
 include("connection.php");
 
 if (isset($_GET['dziennik'])) {
@@ -44,15 +45,39 @@ if (isset($_SESSION['dziennik'])) {
 <head>
 
 <title>Strona glowna</title>
-<?php
-if (isset($_GET['IdWpisu'])) echo 
-    '<link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css" media="all">';
-else echo 
-    '<link rel="stylesheet" type="text/css" href="Data/cssShowReg.css" media="all">';
-?>
+
+<link rel="stylesheet" type="text/css" href="Data/cssShowReg.css" media="all">
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="simplegallery/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="simplegallery/js/simplegallery.js"></script>
+<script>
+$(document).ready(function(){
+<?php
+if (isset($_GET['wycieczka'])){
+?>
+$('#timeline').load('timelineFun.php?wycieczka='+<?php echo $_GET['wycieczka']; ?>);
+<?php
+}
+else{
+?>
+$('#timeline').load('timelineFun.php');
+<?php
+}
+?>
+$('#edycja').click(function(){
+$('.insideDiv').load("editInscription.php?idWpisu="+$('#wpisik').val());
+});
+$('#editontrip').click(function(){
+$('.insideDiv').load("editTrip.php?IdTrip="+$('#iddektrip').val());
+});
+$('#dzialanie').click(function(){
+$('.insideDiv').load("reportForm.php?idWpisu="+$('#wpisik').val());
+});
+
+});
+
+</script>
+
 
 </head>
 
@@ -71,56 +96,53 @@ else echo
         </div>
     </div>    
     <div id="timeline">
-    <?php
-    include ("timelineFun.php");
-           
-    $nr=0;
-    if (isset($_GET['wycieczka'])) {
-        $query="SELECT * FROM wpisy WHERE IdKatalog=".$_GET['wycieczka'];
-        $wpisy=mysql_query($query);
-        $nr=mysql_num_rows($wpisy);
-    }
-    if ($nr>0) {
-        drawInscriptionLine($_GET['wycieczka']);
-    } else {            
-        if (isset($_GET['rok'])) $rok=$_GET['rok'];
-        else $rok=date("Y");
-        drawTripLine($rok,$_SESSION['dziennik']);
-    } 
-    ?>
+
     </div>
     <div id="buttonsBox">
             <!--Wyswietla sie, gdy przeglada uzytkownik(zalogowany). No i gdy widnieje wpis! -->
             <?php 
             if (isset($_SESSION['zalogowany'])) {
             if (isset($_GET['IdWpisu'])) { // trzeba sprawdzac czy uzytkownik ma prawa do przyciskow
+			if (!isset($_SESSION['login'])){
+			$allow = false;
+			}
+			else{
+			$wpis = $_GET['IdWpisu'];
+			$nick = $_SESSION['login'];
+			$dziennik = $_SESSION['dziennik'];
+			$query = mysql_query("SELECT * FROM wpisy WHERE IdWpis ='$wpis'");
+			$result = mysql_fetch_array($query);
+			$spr1 = mysql_query ("SELECT * FROM redaktorzy WHERE NazwaDziennika='$dziennik' AND NickRed = '$nick'");
+			if (mysql_num_rows($spr1) == 1 || $dziennik == $nick){
+			$red = mysql_fetch_array($spr1);
+				if ($red['EdycjaAutora']=='TAK' && $result['IdDziennika'] == $result['NickRed'] || $red['EdycjaRedaktora'] =='TAK' && $result['NickRed'] != $result['IdDziennika'] || $dziennik == $nick){
+			$allow = true;
+			}
+			}
+			else{
+			$allow = false;
+			}
+			}
+			if ($allow){
             echo '
                     <div>
-                    <form id="button" name="buttonForm" action="editInscription.php" method="GET">
-                            <input type="hidden" value="'.$IdWpisu.'" name="idWpisu" />
-                            <input type="submit" name="Edycja" value ="Edycja">
-                    </form>
-                    </div>
+                            <input type="submit" id="edycja" class="button" name="Edycja" value ="Edycja">
+                    </div>';
+			if (isset($_GET['wycieczka'])) {
+            echo '
                     <div>
-                    <form id="button" name="buttonForm2" action="" method="POST">
-                            <input type="submit" name="Usun" value ="Usun" disabled="disabled">
-                    </form>
-                    </div>
+                            <input type="hidden" id="iddektrip" value="'.$_GET['wycieczka'].'" name="IdTrip" />
+                            <input type="submit" class="button" id="editontrip" name="Edycja" value ="Edycja">
+                ';
+            }     
+			}
+			echo'
                     <div>
-                    <form id="button" name="buttonForm" action="reportForm.php?idWpisu='.$IdWpisu.' ?>" method="POST">
-                            <input type="submit" name="zglos" value ="Zgłoś ten wpis">
-                    </form>
+                    <input type="hidden" id="wpisik" value="'.$IdWpisu.'" name="idWpisu" />
+                            <input type="submit" class="button" id="dzialanie" name="zglos" value ="Zgłoś ten wpis">
                     </div>
                 '; 
-            } else if (isset($_GET['wycieczka'])) {
-            echo '
-                    <div>
-                    <form id="button" name="buttonForm" action="editTrip.php" method="GET">
-                            <input type="hidden" value="'.$_GET['wycieczka'].'" name="IdTrip" />
-                            <input type="submit" name="Edycja" value ="Edycja">
-                    </form>
-                ';
-            }            
+            }       
             }
             ?>
     </div> 

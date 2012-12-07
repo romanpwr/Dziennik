@@ -1,4 +1,7 @@
-<?php
+ï»¿<?php
+session_start();
+include("connection.php");
+ date_default_timezone_set("Europe/Warsaw");
 $width = 60; //wysokosc diva lini czasu podzielona przez 10 - 5
              //(5 - potrzebne miejsce na buttony)
 
@@ -22,6 +25,7 @@ function upYear($year) {
     return $year;
 } //oblicza od którego roku ma wyswietlac linie przy naciscnieciu przycisku 'UP'
 
+//wypisuje w divie wycieczki wszystkie wycieczki
 function writeTrip($year,$dziennik) {
     
     global $width;
@@ -36,7 +40,7 @@ function writeTrip($year,$dziennik) {
         $katalog=mysql_query($query); 
     
         while ($row = mysql_fetch_array($katalog)) {
-                echo '<div id="wycieczka"><a href="showReg.php?wycieczka='.$row['IdKatalog'].'">'.$row['Katalog'].'</a></div>';
+                echo '<div id="wycieczka"><a class="wycieczka" wyc="'.$row['IdKatalog'].'" href="#">'.$row['Katalog'].'</a></div>';
                 $ile--;
         }
         $year--;
@@ -45,6 +49,7 @@ function writeTrip($year,$dziennik) {
     return $year;
 }
 
+//wypisuje lata w divie lata
 function writeYears($year) {
     global $width;
     $ile = $width-2;
@@ -65,6 +70,7 @@ function writeYears($year) {
     return $year;
 }
 
+//rysuje linie z obrazkow w divie linia
 function drawLine($year) {
     global $width;
     $ile = $width-2;
@@ -85,20 +91,21 @@ function drawLine($year) {
     return $year;
 }
 
+//wypisuje lata, rysuje linie, wypisuje wycieczki
 function drawTripLine($rok,$dziennik) {
     $rokUp=upYear($rok);
     echo '  <div id="timeline">
             <div id="btn">
-                <form id="btn" action="showReg.php" method="get">
-                    <input type="hidden" value="'.$rokUp.'" name="rok" />
-                    <input id="btn" type="submit" name="Up" value="Up" />
-                </form>
+                    <input type="hidden" id="rokUp" value="'.$rokUp.'" name="rok" />
+                    <input id="btn" class="clickUp" type="submit" name="Up" value="Up" />
+
             </div>
             <div id="liniaCzasu">
             <div id="lata">';
 
     $rokDown=writeYears($rok);
-
+    if($rokDown<1970) $rokDown=upYear($rokDown);
+    
     echo '  </div>
             <div id="linia">';
 
@@ -112,10 +119,8 @@ function drawTripLine($rok,$dziennik) {
     
     echo '  </div>
             <div id="btn2">
-                <form action="showReg.php" method="get">
-                    <input type="hidden" value="'.($rokDown+1).'" name="rok" />
-                    <input id="btn" type="submit" name="Down" value="Down" />
-                </form>
+                    <input type="hidden" id="rokDown" value="'.($rokDown+1).'" name="rok" />
+                    <input id="btn" class="clickDown" type="submit" name="Down" value="Down" /> 
             </div>
             </div>';
     return $rok;
@@ -123,16 +128,19 @@ function drawTripLine($rok,$dziennik) {
 
 //dla wpisów
 
+//pobiera wpisy danej wycieczki z bazy
 function getInscriptions($trip) {
     $query="SELECT * FROM wpisy WHERE IdKatalog='$trip' ORDER BY DataWpisu DESC";
     return mysql_query($query);
 }
 
+//oblicza stosunek aby rownomiernie rozlozyc wpisy na lini czasu
 function countRatio($insNr) {
     global $width;
     return ($width-2)/$insNr;
 }
 
+//rysuje linie w divie linia dla wpisow
 function drawInsLine($trip) {
     global $width;
     $insNr=mysql_num_rows(getInscriptions($trip));
@@ -164,6 +172,7 @@ function drawInsLine($trip) {
     echo '<img src="Linia/dol.png">';
 }
 
+//wypisuje daty w diie daty dla wpisow
 function writeDates($trip) {
     $inscriptions = getInscriptions($trip);
     global $width;
@@ -195,6 +204,7 @@ function writeDates($trip) {
     echo '<div id="data"></div>';
 }
 
+//wypisuje wpisy w divie wpisy
 function writeInscriptions($trip) {
     $inscriptions = getInscriptions($trip);
     global $width;
@@ -210,7 +220,7 @@ function writeInscriptions($trip) {
             $ile++;
             $i++;
         }
-        echo '<div id="data"><a href="showReg.php?wycieczka='.$row['IdKatalog'].'&IdWpisu='.$row['IdWpis'].'">'.$row['Tytul'].'</a></div>'; 
+        echo '<div id="data"><a class="destiny" value="'.$row['IdKatalog'].'" wpis="'.$row['IdWpis'].'" href="#">'.$row['Tytul'].'</a></div>'; 
         $ile++;
         $i++;
         while ($i<$dif) { 
@@ -227,6 +237,7 @@ function writeInscriptions($trip) {
     return $row['IdKatalog'];
 }
 
+//uzupelnia caly div lini wywolujac odpowiednie funkcje
 function drawInscriptionLine($trip) {
     $query="SELECT Katalog FROM katalog WHERE IdKatalog=$trip";
     $result=mysql_query($query);
@@ -251,11 +262,49 @@ function drawInscriptionLine($trip) {
 
     echo '  </div>';
     echo '  <div id="btn2">
-                <form action="showReg.php" method="get">
-                    <input id="btn" type="submit" name="Powrot" value="Powrot" />
-                </form>
+                    <input id="btn" type="submit" class="Powrot" value="Powrot" />
             </div>';
     echo '  </div>';
 }
+$nr=0;
+?>
+<script type="text/javascript" src="simplegallery/js/simplegallery.js"></script>
+<script>
+$(document).ready(function(){
+$('.Powrot').click(function(){
+$('#timeline').load('timelineFun.php');
+});
+$('.clickDown').click(function(){
+$('#timeline').load('timelineFun.php?rok='+$('#rokDown').val());
+});
+$('.clickUp').click(function(){
+$('#timeline').load('timelineFun.php?rok='+$('#rokUp').val());
+});
+$('a.wycieczka').click(function(){
+$('#timeline').load('timelineFun.php?wycieczka='+$(this).attr("wyc"));
+});
+
+$('a.destiny').click(function(){
+$('.insideDiv').load('showReg.php?IdWpisu='+$(this).attr("wpis")+'&wycieczka='+$(this).attr("value"));
+});
+});
+</script>
+<?php
+    '<link rel="stylesheet" type="text/css" href="Data/cssShowReg.css" media="all">';
+if (isset($_GET['wycieczka'])) {
+        $query=("SELECT * FROM wpisy WHERE IdKatalog='".$_GET['wycieczka']."'");
+        $wpisy=mysql_query($query);
+        $nr=mysql_num_rows($wpisy);
+		echo $nr;
+    }
+    if ($nr>0) {
+        drawInscriptionLine($_GET['wycieczka']);
+    } else {            
+        if (isset($_GET['rok'])){
+		$rok=$_GET['rok'];
+		}
+        else $rok=date("Y");
+        drawTripLine($rok,$_SESSION['dziennik']);
+    } 
 
 ?>

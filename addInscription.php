@@ -33,20 +33,20 @@ if (!$error){
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script>
 $(document).ready(function(){
-	$(".titleEr").hide();
-	$(".wpisEr").hide();
+	$(".cos1").hide();
+	$(".cos2").hide();
 	$('.dodajWpis').click(function(){
 	if ($("#title").val() ==""){
-	$('.titleEr').show();
+	$('.cos1').show();
 	}
 	else{
-	$('.titleEr').hide();
+	$('.cos1').hide();
 	}
 	if ($("#inscription").val() == ""){
-	$('.wpisEr').show();
+	$('.cos2').show();
 	}
 	else{
-	$('.wpisEr').hide();
+	$('.cos2').hide();
 	}
 	if ($("#title").val() !="" && $("#inscription").val() != ""){
 	var form_data = {
@@ -66,15 +66,19 @@ $(document).ready(function(){
 	
 	}
 	});
-	$('.addTrip').click(function(){
+	$('.costrip').click(function(){
 	$('.insideDiv').load('addTrip.php');
+	});
+	$('.clearing').click(function(){
+	$("#title").attr('value','');
+	$("#inscription").attr('value','');
 	});
 	
 });
 </script>
 </head>
 <body>
-<?php include ("ckeditor.php"); ?>
+<?php //include ("ckeditor.php"); ?>
 <div id="message"></div>
 <table>        
     <th>         
@@ -88,34 +92,21 @@ $(document).ready(function(){
                 echo "</select>";
             }
           ?>
-            <button type="button" class="addtrip">Dodaj podróż</button></a>
+            <button type="button" class="costrip">Dodaj podróż</button>
         </p>
         <p><label for="title">Tytuł zdarzenia: </label>   
-			<div class="titleER"><font color="red">Podaj tytuł</font></div>
+			<div class="cos1"><font color="red">Podaj tytuł</font></div>
             <input type="text" id="title" name="title" size="30" autofocus required="required"/>                                  
         </p>                
         <p><label for="inscription">Wpis: </label></p>     
-			<div class="wpisER"><font color="red">Wpisz treść</font></div>	
+			<div class="cos2"><font color="red">Wpisz treść</font></div>	
         <p><textarea class="ckeditor" id="inscription"name="inscription" rows="20" cols="60"/></textarea></p>                
         <p class="center">                    
-           <input type="reset" class="clear" value="Wyczyść pola"/>                    
+           <input type="submit" class="clearing" name="reset" value="Wyczyść pola"/>                  
            <input type="submit" class="dodajWpis" name="submit" value="Zapisz"/>                
         </p>                    
     </td>           
     </th>        
-    <th>                    
-        <table>               
-        <tr><td><label>Załącz zdjęcie: </label></td></tr>            
-        <tr><td></td></tr>            
-        <tr><td><label>Tu będzie kontener multimediów. </label></td></tr>
-        <tr><td><label>Załącz video: </label></td></tr>    
-        <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>    
-        <tr><td><label>Załącz plik audio: </label></td></tr>    
-        <tr><td><button>Przeglądaj</button></td></tr>    
-        <tr><td><label>Tu będzie kontener multimediów. </label> </td></tr>                
-        </table>
-    </th>
 </table>
 </body>
 </html>
