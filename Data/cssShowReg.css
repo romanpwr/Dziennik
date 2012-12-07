@@ -5,11 +5,15 @@ body {
 #inside{
     width: 1210px;
     height: auto;
+	margin:0px;
+	padding:0px;
+	display:block;
 }
 
+/* */
 #inscription {
     width: 900px;
-    height: 654px;
+    height: auto;
     float: left;
 }
 
@@ -20,29 +24,39 @@ body {
 
 #entry {
     width: 900px;
-    height: 585px;
+    height: 535px;
 }
 
-#buttonsbox {
+#buttonsBox {
     width: 900px;
     height: 28px;
-    clear: both;
 }
 
-#button {
+.button {
     width: auto;
     height: 28px;
     margin: 0px;
-    float: left;
+float:left;
+}
+#simplegallery {
+    width: 900px;
+    height: 160px;
+}
+
+#komentarze {
+	float:left;
+    width: 100%;
+    height: auto;
 }
 
 /* style dla linii czasu*/
 #timeline {
-    margin      : auto;
-    border      : 1px solid black;
+    margin      : 0px;
     padding     : 0px;
+    border      : 1px solid black;
+
     width       : 300px;
-    height      : 640px;
+    height      : 800px;
     
     font-size   : 10pt;
     text-align  : left;
@@ -52,18 +66,20 @@ body {
 
 #liniaCzasu {
     border      : none;
-    padding     : 0px;
+     margin      : 0px;
+    padding-bottom     : 0px;
     width       : 50px;
-    height      : 600px;
+    height      : 800px;
     
     text-align  : left;
     float       : left;     
 }
 
 #lata {
-   margin      : 0px;
+    margin      : 0px;
+    padding     : 0px;
    width       : 40px;
-   height      : 600px;
+   height      : 800px;
    
    float       : left;   
 }
@@ -81,7 +97,7 @@ body {
    border      : none;
    padding     : 0px;
    width       : 10px;
-   height      : 600px;
+   height      : 800px;
    
    float       : right;
 }
@@ -96,9 +112,10 @@ body {
 
 #wycieczki {
     border      : none;
+     margin      : 0px;
     padding     : 0px;
     width       : 220px;
-    height      : 600px;
+    height      : 800px;
     
     text-align  : left;
     float       : right;
@@ -113,25 +130,28 @@ body {
 }
 
 #btn {
-    margin      : 0px;
+     margin      : 0px;
+    padding     : 0px;
     width       : 100%;
     height      : 20px; 
 }
 
 #liniaCzasuWpisy {
     border      : none;
+     margin      : 0px;
     padding     : 0px;
     width       : 80px;
-    height      : 600px;
+    height      : 700px;
     
     text-align  : left;
     float       : left;    
 }
 
 #daty {
-   margin      : 0px;
+    margin      : 0px;
+    padding     : 0px;
    width       : 70px;
-   height      : 600px;
+   height      : 500px;
    
    float       : left;   
 }
@@ -148,7 +168,7 @@ body {
     border      : none;
     padding     : 0px;
     width       : 200px;
-    height      : 600px;
+    height      : 700px;
     
     text-align  : left;
     float       : right;
@@ -163,8 +183,11 @@ body {
 }
 
 #btn2 {
+position: absolute;
+    bottom: 0px;
+	right:0px;
     clear       : both;
     margin      : 0px;
-    width       : 100%;
+    width       : 25em;
     height      : 20px; 
 }

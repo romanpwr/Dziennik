@@ -28,7 +28,10 @@ $(document).ready(function() {
 	$('#menuBox ul li a').click(function(){
 			$('#menuBox ul li a').addClass('current').not(this).removeClass('current');		
 	});
-	$('#searchUser').click(function(){
+	$('#searchUserr').click(function(){
+	$('.insideDiv').slideUp('fast');
+		$('.insideDiv').css("display","none");
+		$('.insideDiv').slideDown('fast');
 	$('.insideDiv').load('profile.php?userid='+$('#userID').val());
 	});
 	
@@ -38,7 +41,7 @@ $(document).ready(function() {
 //	$("#edycjaZ").click(function(){$('.insideDiv').load('addDiary.php') ;});	
 	$("#redakt").click(function(){$('.insideDiv').load('addEditor.php') ;});	
 	$("#edycjaD").click(function(){$('.insideDiv').load('edit.php') ;});	
-//	$("#zglosze").click(function(){$('.insideDiv').load('addDiary.php') ;});	
+	$("#zglosze").click(function(){$('.insideDiv').load('reportForm.php') ;});	
 	$("#wyloguj").click(function(){$('.insideDiv').load('wyloguj.php') ;});	
 	
 
@@ -65,7 +68,7 @@ $(document).ready(function() {
 				<!-- Search User -->
 				<div class="search_panel">
 					<input type="text" id="userID" size="22" name="nickuser" style="color:grey;">
-					<input type="submit" id="searchUser" name="wyslij" value="Wyszukaj u¿ytkownika">
+					<input type="submit" id="searchUserr" name="wyslij" value="Wyszukaj u¿ytkownika">
 				</div>	
 		<!-- / Search User -->
 			</ul>
