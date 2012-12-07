@@ -1,6 +1,21 @@
 ﻿<?php
-
-function show($variable){
+include ("connection.php");
+session_start();
+if (isset($_GET['IdWpisu'])){
+?>
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("a.zgloszenie").click(function(){
+		$('.insideDiv').load('reportForm.php?idkom='+$(this).attr("value"));
+	});
+	$("a.editkoma").click(function(){
+	$('.insideDiv').load('editComment.php?IdKom='+$(this).attr("value"));
+	});
+});
+</script>
+<?php
+$variable= $_GET['IdWpisu'];
 $komentarze = mysql_query("SELECT * FROM komentarze WHERE IdWpisu=".$variable."");
 
 echo '<head><link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css"></head>';
@@ -13,10 +28,10 @@ $var = strlen($row['Tresc'])/40;
 echo'<textarea style="color:black; border:0; resize:none;"  name="komentarz" id="komentarz" rows="'.ceil($var).'"  cols="40" readonly="readonly">';
 echo ''.$row['IdUser'].': '.$row['Tresc'];
 echo '</textarea></br>';
-echo '<a style="color:blue;text-align:right;font-family:Times New Roman,serif;font-size:11" href="reportForm.php?idkom="'.$row["IdKom"].'">Zgłoś</a>  ';
+echo '<a style="color:blue;text-align:right;font-family:Times New Roman,serif;font-size:11" class="zgloszenie" href ="#" value="'.$row["IdKom"].'">Zgłoś</a>  ';
 $user = $_SESSION['login'];
 if($user==$row['IdUser']){
-echo '<a href="editComment.php?IdKom='.$row['IdKom'].'">Edytuj</a><br />';}
+echo '<a class="editkoma" value="'.$row['IdKom'].'" href="#">Edytuj</a><br />';}
 echo '<hr size="1" align="left" width="340px" color="#DDDDDD">';
 
 }
