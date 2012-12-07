@@ -63,6 +63,16 @@ else{
 $('#timeline').load('timelineFun.php');
 <?php
 }
+if (isset($_GET['IdWpisu']) && $rowK["Komentarze"] == "TAK") {
+    if (isset($_SESSION['zalogowany'])) {
+?>
+$('#addcom').load('addComment.php?IdWpisu='+$('#wpisik').val());
+<?php
+}
+?>
+$('#showcom').load('showComments.php?IdWpisu='+$('#wpisik').val());
+<?php
+}
 ?>
 $('#edycja').click(function(){
 $('.insideDiv').load("editInscription.php?idWpisu="+$('#wpisik').val());
@@ -74,6 +84,8 @@ $('#dzialanie').click(function(){
 $('.insideDiv').load("reportForm.php?idWpisu="+$('#wpisik').val());
 });
 
+
+
 });
 
 </script>
@@ -82,6 +94,7 @@ $('.insideDiv').load("reportForm.php?idWpisu="+$('#wpisik').val());
 </head>
 
 <body>
+<input type="hidden" id="wpisik" value="<?php echo$IdWpisu;?>" name="idWpisu" />
 <div id="inside">
     <div id="inscription">
 	<!-- Tytul wpisu -->
@@ -126,19 +139,18 @@ $('.insideDiv').load("reportForm.php?idWpisu="+$('#wpisik').val());
 			if ($allow){
             echo '
                     <div>
-                            <input type="submit" id="edycja" class="button" name="Edycja" value ="Edycja">
+                            <input type="submit" id="edycja" class="button" name="Edycja" value ="Edycja wpisu">
                     </div>';
 			if (isset($_GET['wycieczka'])) {
             echo '
                     <div>
                             <input type="hidden" id="iddektrip" value="'.$_GET['wycieczka'].'" name="IdTrip" />
-                            <input type="submit" class="button" id="editontrip" name="Edycja" value ="Edycja">
+                            <input type="submit" class="button" id="editontrip" name="Edycja" value ="Edycja wycieczki">
                 ';
             }     
 			}
 			echo'
                     <div>
-                    <input type="hidden" id="wpisik" value="'.$IdWpisu.'" name="idWpisu" />
                             <input type="submit" class="button" id="dzialanie" name="zglos" value ="Zgłoś ten wpis">
                     </div>
                 '; 
@@ -151,11 +163,9 @@ $('.insideDiv').load("reportForm.php?idWpisu="+$('#wpisik').val());
 <?php
 if (isset($_GET['IdWpisu']) && $rowK["Komentarze"] == "TAK") {
     if (isset($_SESSION['zalogowany'])) {
-        include("addComment.php");
-        comment($IdWpisu);
+        echo "<div id='addcom'></div>";
         } 
-    include("showComments.php");
-    show($IdWpisu);
+	echo "<div id='showcom'></div>";	
 }
 ?>
 </div>

@@ -13,18 +13,24 @@ $nick = $_SESSION['login'];
 
 
 $query = mysql_query("SELECT * FROM zalaczniki WHERE idzal = '$idzal'");
-$q1 = mysql_query("SELECT  IdWpis FROM wpisy WHERE IdDziennika ='$dziennik'");
-$q2 = mysql_query("SELECT idwpisu FROM zalaczniki WHERE idzal = '$idzal'");
-$row = mysql_fetch_array($query);
-$spr2 = mysql_fetch_array($q2);
+$query5 = mysql_query("SELECT * FROM katalog WHERE IdDziennika ='$dziennik'");
 $result = false;
+while ($spr = mysql_fetch_array($query5, MYSQL_BOTH)){
+$q1 = mysql_query("SELECT  IdWpis FROM wpisy WHERE IdKatalog ='".$spr['IdKatalog']."'");
+$q2 = mysql_query("SELECT idwpisu FROM zalaczniki WHERE idzal = '$idzal'");
+$spr2 = mysql_fetch_array($q2);
 while ($spr1 = mysql_fetch_array($q1, MYSQL_BOTH)){
 if ($spr1['IdWpis'] == $spr2['idwpisu']){
 $result = true;
+break;
 }
 }
 if ($result){
-
+break;
+}
+}
+if ($result){
+$row = mysql_fetch_array($query);
 ?>
 <head>
 

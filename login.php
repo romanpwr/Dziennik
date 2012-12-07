@@ -10,12 +10,12 @@ dostep - dostęp do naszego serwisu, domyślnie na razie jest to 0, ale zostanie
 **/
 
 if(isset($_SESSION['zalogowany'])) {
-
+ echo header("Location: userPage2.php");
 echo "From Session <br />";
 $login = $_SESSION['login'];
 $dziennik = $_SESSION['dziennik'];
 echo $login." Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br> Masz dziennik: ".$dziennik;
-		   echo('<br /><a href="userPage2.html">Kliknij tutaj, aby przejść dalej</a>');
+		   echo('<br /><a href="userPage2.php">Kliknij tutaj, aby przejść dalej</a>');
 }else{
 if(isset($_POST['wyslij'])) {
 $login = $_POST['login'];
@@ -35,10 +35,11 @@ $query = mysql_query("SELECT * FROM uzytkownicy WHERE Nick = '".$login."' && Has
 		   else {
 		   $_SESSION['dziennik'] ='0';
 		   }
-		   echo header("Location: userPage2.html");
+		   echo header("Location: userPage2.php");
 		   echo $_SESSION['dziennik']."<br />";
            echo $login." <br />Zostałeś poprawnie zalogowany.<br /> Twój poziom dostępu to ".$_SESSION['dostep']." </br>";
 		   echo('<a href="userPage2.html">Kliknij tutaj, aby przejść dalej</a>');
+		   
 
        } else { 
 	print '<p>Zle dane</p>';

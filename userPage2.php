@@ -68,7 +68,8 @@ $(document).ready(function() {
 				<!-- Search User -->
 				<div class="search_panel">
 					<input type="text" id="userID" size="22" name="nickuser" style="color:grey;">
-					<input type="submit" id="searchUserr" name="wyslij" value="Wyszukaj u¿ytkownika">
+					<input type="submit" id="searchUserr" name="wyslij" value="Wyszukaj u¿ytkownika"><br><br>
+					<input type="submit" id="searchUserr" name="wyslij" value="Moj dziennik">
 				</div>	
 		<!-- / Search User -->
 			</ul>
