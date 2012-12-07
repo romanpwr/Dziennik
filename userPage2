@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Strona glowna</title>
+<link rel="stylesheet" type="text/css" href="css/userMain.css">
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	setTimeout(function() {
+		$('#glowna').delay(30).fadeIn("slow");
+		$('#dodajD').delay(150).fadeIn("slow");
+		$('#dodajZ').delay(250).fadeIn("slow");
+		$('#edycjaZ').delay(350).fadeIn("slow");
+		$('#redakt').delay(450).fadeIn("slow");
+		$('#oMnie').delay(550).fadeIn("slow");
+		$('#edycjaD').delay(650).fadeIn("slow");
+		$('#zglosze').delay(750).fadeIn("slow");
+	}, 300); // <-- time in milliseconds
+	$('.menu').click(function(){
+			$('#midDiv').fadeIn("slow");
+	});
+	$("#glowna").click(function(){
+		
+	});	
+	$("#dodajD").click(function(){
+		
+		$('#midDiv').load('addDiary.php') ;	
+	});	
+		
+	$("#dodajZ").click(function(){
+		
+		$('#midDiv').load('addInscription2.php') ;	
+		
+	});	
+	$("#edycjaZ").click(function(){
+	
+	});	
+	$("#redakt").click(function(){
+	
+		$('#midDiv').load('addEditor.php');
+	});
+	$("#oMnie").click(function(){
+		
+	});
+	$("#edycjaD").click(function(){
+		
+	});
+	$("#zglosze").click(function(){
+		
+	});		
+});
+</script>
+<style>
+body
+{
+background-image:url('brick.gif');
+background-repeat:repeat;
+}
+</style>
+</head>
+<body>
+ 
+<div id="container">
+			<div class="logoDiv">
+				<p>Dziennik podrozy uzytkownika: Adas</p>
+			</div>
+	<!-- logo+search -->
+	<div id="logoSearchDiv">	
+		<!-- Search User -->
+			<div class="search_panel">
+				<form name="searchForm" action="profile.php" method="POST"><br>
+				<input type="text" id="wpisz" size="25" name="nickuser" style="color:grey;" value="Podaj tu nick do szukania">
+				<input type="submit" name="wyslij" value="Submit">
+				</form>
+			</div>	
+		<!-- / Search User -->
+		
+	</div>
+	<!-- lewy panel - menu -->
+	<div id="menuDiv">
+		<ul>
+			<li><a href="#nothing" style="display:none" id="glowna" class="menu">Strona glowna</a> </li>
+			<li><a href="#nothing" style="display:none" id="dodajD" class="menu" >Dodaj dziennik</a> </li>
+			<li><a href="#nothing" style="display:none" id="dodajZ" class="menu" >Dodaj zdarzenie</a> </li>
+			<li><a href="#nothing"  style="display:none" id="edycjaZ" class="menu">Edycja zdarzen</a> </li>
+			<li><a href="#nothing" style="display:none" id="redakt" class="menu">Redaktorzy</a>  </li>
+			<li><a href="#nothing" style="display:none" id="oMnie" class="menu">O Mnie</a> </li>
+			<li><a href="#nothing" style="display:none"  id="edycjaD" class="menu">Edycja danych</a> </li>
+			<li><a href="#nothing" style="display:none"  id="zglosze" class="menu">Zgloszenia</a>   </li> 
+		</ul>
+	</div>
+	<!-- srodkowy panel - tresc -->
+	<div id="midDiv" >
+	text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+	text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+	text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+	text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+	</div>
+	<!-- prawy panel - os czasu   <Iframe name="yourIframe" id="yourIframe"></Iframe>-->
+	<div id="timelineDiv">
+	W tym miejscu bedzie os czasu
+	</div>
+	<div id="ramkaD">
+		<Iframe name="iram" id="iram"></Iframe>
+	</div>
+</div>
+
+</body>
+
+</html>

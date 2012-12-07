@@ -29,17 +29,46 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 <title>Dodawanie redaktorów do dziennika</title>
 <link rel="stylesheet" type="text/css" href="Data/cssAddEditor.css">
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-
+<script>
+$(document).ready(function(){
+	$('.dodaj').click(function(){
+	var form_data = {
+			nickred: $("#wpisz").val(),
+			dodaj: true,
+			addred: 1
+		};
+	$.ajax({
+			type: "POST",
+			url: "addEditor2.php",
+			data: form_data,
+		}).done(function( response ) {
+		$("#message").html(response);
+		});
+	
+	});
+	$('.clickRed').click(function(){
+	if ($('input:radio[id=redaktorid]:checked').val() != null){
+	if ($(this).val() == 'Edytuj'){
+	$('.insideDiv').load('editEditor.php?id='+$('input:radio[id=redaktorid]:checked').val());
+	}
+	else if ($(this).val() == 'Usun'){
+	$('.insideDiv').load('delEditor.php?id='+$('input:radio[id=redaktorid]:checked').val());
+	}
+	}
+	});
+	
+});
+</script>
 </head>
 <body>
 <div id="inside">
 <fieldset>
 <p>Dodawanie nowego redaktora:</p>
-<?php echo $komunikaty; ?>
-	<form name="searchEditorForm" method="POST" action="addEditor.php"><br>
+<div id="message"></div>
+	<!--<form name="searchEditorForm" method="POST" action="addEditor.php"><br> -->
 		<input type="text" id="wpisz" size="25" style="color:grey;" name="nickred" required="required" value="<?php if (isset($_POST['nickred'])) {echo $_POST['nickred'];} else {?>Podaj tu nick do szukania<?php }?>">
-		<input type="submit" name="dodaj" value="Dodaj">
-	</form>
+		<input type="submit" class="dodaj" id="dodaj" name="dodaj" value="Dodaj">
+	<!--</form>-->
 	</fieldset>
 </div>
 <br>
@@ -54,14 +83,14 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 	</tr>
 	<?php 
 	$i = 0;
-	echo ('<form method="POST" action="addEditor.php">');
+	//echo ('<form method="POST" action="addEditor.php">');
 	while ($row = mysql_fetch_array($query, MYSQL_BOTH)){
 	$i ++;
 	
 		echo '<tr>
 		<td  class="select">
 			
-				<input type="radio" name="redaktor" value="'.$row['IdRed'].'" required="required"><br>
+				<input id="redaktorid" type="radio" name="redaktor" value="'.$row['IdRed'].'" required="required"><br>
 			
 		</td>
 		<td class="indexed">
@@ -77,18 +106,18 @@ $query = mysql_query("SELECT IdRed, NickRed FROM redaktorzy WHERE NazwaDziennika
 	}
 echo'</table>
 <!-- Usuniecie Redaktora -->
-		    <input type="submit" name="edit" value="Edytuj"';
+		    <input class="clickRed" type="submit" id="Edytuj" name="edit" value="Edytuj"';
 			if ($i ==0){
 			echo ('disabled="disabled"');
 			}
 			echo'>
-			<input type="submit" name="del" value="Usun"';
+			<input class="clickRed" type="submit" id="Usun" name="del" value="Usun"';
 			if ($i ==0){
 			echo ('disabled="disabled"');
 			}			
 			echo'>';
 			?>
-		</form>
+		<!--</form>-->
 		</fieldset>
 </div>
 <script>
