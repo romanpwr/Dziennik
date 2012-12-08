@@ -3,19 +3,20 @@ session_start();
 include("connection.php");
 include("getbrowser.php");
 
-if (isset($_SESSION['dziennik'])) {
+if (isset($_SESSION['zalogowany'])) {
+
 $login = $_SESSION['login'];
 
 // Sprawdzanie czy dziennik został zaakceptowany przez admina
-$error = false;
 if ($_SESSION['dziennik'] == $login){
+$error = false;
 $zgl = mysql_query("SELECT * FROM zgloszenia WHERE NickUsera ='$login' AND Temat='dodanie dziennika' AND Url='/adminAddDiary.php?id=$login'");
 while ($row = mysql_fetch_array($zgl)){
 if ($row['StatusZgl'] <> 2){
 $error = true;
 }
 }
-}
+
 if (!$error){
     date_default_timezone_set("Europe/Warsaw");
 $dzien = date('d');
@@ -139,5 +140,9 @@ else { echo'<br><span style="color: red; font-weight: bold;">Twój dziennik nie 
 }
 } else {
     echo '<br><span style="color: red; font-weight: bold;">Nie został wybrany dziennik, do którego wpis ma być dodany lub nie posiadasz dziennika!</span><br>' ;
+}
+} else {
+echo '<br>Nie byłeś zalogowany albo zostałeś wylogowany.<br><a href="index.html">Zaloguj się</a><br>';
+
 }
 ?>

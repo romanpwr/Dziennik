@@ -1,5 +1,8 @@
 <!DOCTYPE html>
+<?php 
+session_start();
 
+?>
 <html>
 <head>
 
@@ -37,12 +40,31 @@ $(document).ready(function() {
 	
 	$("#dodajD").click(function(){$('.insideDiv').load('addDiary.php') ;});	
 	$("#dodajW").click(function(){$('.insideDiv').load('addTrip.php') ;});	
-	$("#dodajZ").click(function(){$('.insideDiv').load('addInscription.php') ;});	
-//	$("#edycjaZ").click(function(){$('.insideDiv').load('addDiary.php') ;});	
+	$("#dodajZ").click(function(){$('.insideDiv').load('addInscription.php') ;});
 	$("#redakt").click(function(){$('.insideDiv').load('addEditor.php') ;});	
 	$("#edycjaD").click(function(){$('.insideDiv').load('edit.php') ;});	
 	$("#zglosze").click(function(){$('.insideDiv').load('reportForm.php') ;});	
 	$("#wyloguj").click(function(){$('.insideDiv').load('wyloguj.php') ;});	
+	
+	$("#setmyDiary").click(function(){
+	if ($("#nickuser").val() != ""){
+	var form_data = {
+			diaryname: $("#nickuser").val(),
+			addred: 1
+		};
+	$.ajax({
+			type: "POST",
+			url: "changeDiary.php",
+			data: form_data,
+		}).done(function( response ) {
+		$('.insideDiv').slideUp('fast');
+		$('.insideDiv').css("display","none");
+		$('.insideDiv').slideDown('fast');
+		$('.insideDiv').load('showReg.php') ;
+		});
+	
+	}
+	});
 	
 
 });
@@ -60,7 +82,6 @@ $(document).ready(function() {
 				<li><a href="#nothing" id="dodajD" class="menu" >Dodaj dziennik</a> </li>
 				<li><a href="#nothing" id="dodajW" class="menu" >Dodaj wycieczke</a> </li>
 				<li><a href="#nothing" id="dodajZ" class="menu" >Dodaj zdarzenie</a> </li>
-				<li><a href="#nothing" id="edycjaZ" class="menu">Edycja zdarzen</a> </li>
 				<li><a href="#nothing" id="redakt" class="menu">Redaktorzy</a>  </li>
 				<li><a href="#nothing" id="edycjaD" class="menu">Edycja danych</a> </li>
 				<li><a href="#nothing" id="zglosze" class="menu">Zgloszenia</a>   </li> 
@@ -69,7 +90,9 @@ $(document).ready(function() {
 				<div class="search_panel">
 					<input type="text" id="userID" size="22" name="nickuser" style="color:grey;">
 					<input type="submit" id="searchUserr" name="wyslij" value="Wyszukaj u¿ytkownika"><br><br>
-					<input type="submit" id="searchUserr" name="wyslij" value="Moj dziennik">
+					<input type="hidden" id="nickuser" value="<?php if (isset ($_SESSION['login'])){ echo $_SESSION['login'];} else
+					echo "";?>">
+					<input type="submit" id="setmyDiary" name="wyslij" value="Moj dziennik">
 				</div>	
 		<!-- / Search User -->
 			</ul>

@@ -3,9 +3,9 @@ include ("connection.php");
 
 
 
-if (isset($_POST['idWpisu']) && (isset($_SESSION['dziennik']))){
+if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
 
-$idwpisu = $_POST['idWpisu'];
+$idwpisu = $_GET['idWpisu'];
 $dziennik = $_SESSION['dziennik'];
 $nick = $_SESSION['login'];
 date_default_timezone_set("Europe/Warsaw");
@@ -80,7 +80,7 @@ $('.objlink').change(function(){
 <input type="submit" name="wyslij" value ="Obejrzyj zdjęcia">
 </form>
 <p><b>Zaladuj zdjecia</b></p>
-	<form method="post" enctype="multipart/form-data" action="addPhoto.php">
+	<form method="post" enctype="multipart/form-data" action="addPhoto2.php?idWpisu=<?php echo $idwpisu;?>">
   <fieldset>
     <legend>Przeslij pliki</legend>
     <label>Dodaj pliki:
@@ -100,7 +100,7 @@ $('.objlink').change(function(){
 </form>
 -->
 <p><b>Zaladuj Film</b></p>
-	<form method="post" enctype="multipart/form-data" action="addPhoto.php">
+	<form method="post" enctype="multipart/form-data" action="addPhoto2.php?idWpisu=<?php echo $idwpisu;?>">
   <fieldset>
     <legend>Przeslij pliki</legend>
     <label>Dodaj pliki:<br />
@@ -127,7 +127,7 @@ $('.objlink').change(function(){
 <input type="submit" name="wyslij" value ="Obejrzyj zdjęcia">
 </form>-->
 <p><b>Zaladuj Plik dźwiękowy</b></p>
-	<form method="post" enctype="multipart/form-data" action="addPhoto.php">
+	<form method="post" enctype="multipart/form-data" action="addPhoto2.php?idWpisu=<?php echo $idwpisu;?>">
   <fieldset>
     <legend>Przeslij pliki</legend>
     <label>Dodaj pliki:<br />

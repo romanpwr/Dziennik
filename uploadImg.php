@@ -1,16 +1,16 @@
-<?php session_start();
+﻿<?php session_start();
 include ("connection.php");
 
 
 
-if (isset($_POST['idWpisu']) && (isset($_SESSION['dziennik']))){
+if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
 
 
-$idwpisu = $_POST['idWpisu'];
+$idwpisu = $_GET['idWpisu'];
 $dziennik = $_SESSION['dziennik'];
 $nick = $_SESSION['login'];
 $komunikaty = '';
-// ******** USUWANIE ZDJ�?CIA ********
+// ******** USUWANIE ZDJĘCIA ********
 if (isset($_POST['usun']) && isset($_POST['zdj'])){
 
 for ($i =0; $i<sizeof($_POST['zdj']); $i++){

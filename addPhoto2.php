@@ -2,6 +2,16 @@
 include ("connection.php");
 
 
+if (isset($_GET['idWpisu']) && (isset($_SESSION['dziennik']))){
+
+$idwpisu = $_GET['idWpisu'];
+$dziennik = $_SESSION['dziennik'];
+$nick = $_SESSION['login'];
+date_default_timezone_set("Europe/Warsaw");
+$data = date("Y-m-d");
+
+
+
 if (isset($_POST['wyslij'])){
 
 $zal = mysql_num_rows(mysql_query("SELECT * FROM zalaczniki WHERE idwpisu = '$idwpisu'"));
@@ -155,5 +165,9 @@ if (isset($komunikaty)){
   
   }
 }
+}
+}
+else{
+   echo '<br><span style="color: red; font-weight: bold;">Nie został wpis, do którego mają być przesyłane nowe zdjęcia!</span><br>' ;
 }
 ?>

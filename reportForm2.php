@@ -19,7 +19,6 @@ $spr4 = mysql_num_rows(mysql_query("SELECT * FROM zgloszenia WHERE NickUsera='".
 Temat='usunięcie konta' AND StatusZgl<>2"));
 $spr5 = mysql_num_rows(mysql_query("SELECT * FROM zgloszenia WHERE NickUsera='".$nick."' AND 
 Temat='usunięcie dziennika' AND StatusZgl<>2"));
-echo ($spr3." ".$spr4." ".$spr5);
 if($spr1 < 3){
 $komunikaty = "Zgloszenie musi miec min. 3 znaki. Uzupelnij formularz.<br>";
 echo '<br><span style="color: red; font-weight: bold;">'.$komunikaty.'</span><br>';

@@ -39,7 +39,6 @@ $(document).ready(function(){
 	else{
 	$("#pass").hide();
 	var form_data = {
-			nickred: $("#wpisz").val(),
 			password: $('#Psswd').val(),
 			option1: $('input:checkbox[name=option1]').val(),
 			option2: $('input:checkbox[name=option2]').val(),
